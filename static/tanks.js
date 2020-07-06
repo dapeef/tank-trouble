@@ -79,11 +79,15 @@ function onLoad() {
         let cols = ['blue', 'lime', 'magenta', 'green', 'orange', 'red', 'yellow'];
 
         socket.emit('c_on_new_user_arrive', {col: cols[Math.floor(Math.random() * cols.length)]})
+
+        redrawHUD();
     });
 
     socket.on('s_on_new_user_arrive', function(state) {
         tanks = state;
         serverTanks = state;
+
+        redrawHUD();
     });
     socket.on('s_on_user_leave', function(id) {
         delete tanks[id.id];
@@ -349,4 +353,14 @@ function lerp(a, b, t) {
 
 function getMyTank() {
     return tanks[socket.id];
+}
+
+function redrawHUD() {
+    console.log("I'm tryinggggg")
+
+    console.log(tanks)
+
+    for (let i = 0; i < tanks.length; i++) {
+        const tank = tanks[i];
+    }
 }
