@@ -8,7 +8,7 @@ var socket;
 var pressedKeys = {};
 
 // Variables for the game
-var grid = { w: 1, h: 1 };
+var grid = {w: 1, h: 1};
 var tanks = {};
 var serverTanks = {};
 
@@ -77,7 +77,7 @@ function onLoad() {
         socket.emit('c_on_new_user_arrive', {col: cols[Math.floor(Math.random() * cols.length)]})
     });
 
-    socket.on('s_on_new_user_arrive', function(state) { 
+    socket.on('s_on_new_user_arrive', function(state) {
         tanks = state;
         serverTanks = state;
     });
@@ -85,8 +85,8 @@ function onLoad() {
         delete tanks[id.id];
         delete serverTanks[id.id];
     });
-    socket.on('s_broadcast', function(state) { updateServerTankState(state); });
-    socket.on('s_on_tank_move', function(state) { updateServerTankState(state); });
+    socket.on('s_broadcast', function(state) {updateServerTankState(state);});
+    socket.on('s_on_tank_move', function(state) {updateServerTankState(state);});
     socket.on('s_spawn_projectile', function(newProj) {
         // Check if the projectile is new and isn't one of ours
         if (!(newProj.id in projectiles)) {
@@ -102,9 +102,9 @@ function onLoad() {
             projectiles[newProj.id] = proj;
         }
     });
-        
+
     // Set up callbacks
-    window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; };
+    window.onkeyup = function(e) {pressedKeys[e.keyCode] = false;};
     window.onkeydown = function(e) {
         pressedKeys[e.keyCode] = true;
 
@@ -133,11 +133,11 @@ function onLoad() {
             nextProjectileId += 1;
         }
     };
-    window.onbeforeunload = function() { socket.close(); };
+    window.onbeforeunload = function() {socket.close();};
 
     // Set the loops going
     setInterval(updateServer, 50);
-    
+
     frame();
 }
 
@@ -158,12 +158,12 @@ function frame() {
 
     if (myTank) {
         myTank.angularVelocity = 0;
-        if (pressedKeys[KEY_LEFT ] == true) { myTank.angularVelocity -= 1; }
-        if (pressedKeys[KEY_RIGHT] == true) { myTank.angularVelocity += 1; }
+        if (pressedKeys[KEY_LEFT] == true) {myTank.angularVelocity -= 1;}
+        if (pressedKeys[KEY_RIGHT] == true) {myTank.angularVelocity += 1;}
 
         myTank.forwardVelocity = 0;
-        if (pressedKeys[KEY_DOWN] == true) { myTank.forwardVelocity -= 1; }
-        if (pressedKeys[KEY_UP  ] == true) { myTank.forwardVelocity += 1; }
+        if (pressedKeys[KEY_DOWN] == true) {myTank.forwardVelocity -= 1;}
+        if (pressedKeys[KEY_UP] == true) {myTank.forwardVelocity += 1;}
 
         var isMoving = myTank.angularVelocity != 0 || myTank.forwardVelocity != 0;
 
@@ -257,7 +257,7 @@ function frame() {
     for (const id in tanks) {
         drawTank(tanks[id]);
     }
-    
+
     if (SHOW_SERVER_TANKS) {
         for (const id in serverTanks) {
             drawTank(serverTanks[id], "rgba(0,0,0,0)");
