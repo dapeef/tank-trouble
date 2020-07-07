@@ -3,13 +3,12 @@ var canvas;
 var ctx;
 var viewRect;
 var socket;
-var HUDcontainer;
 
 // Key tracking
 var pressedKeys = {};
 
 // Variables for the game
-var grid = {w: 1, h: 1};
+var grid = { w: 1, h: 1 };
 var tanks = {};
 var serverTanks = {};
 
@@ -59,9 +58,6 @@ function onLoad() {
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
 
-    // Get HUD element
-    HUDcontainer = document.getElementById("HUDcontainer")
-
     // Make sure that the canvas looks good on high DPI monitors (like mine)
     var dpr = window.devicePixelRatio || 1;
     viewRect = canvas.getBoundingClientRect();
@@ -76,25 +72,24 @@ function onLoad() {
 
     // When the connection is established, tell the server that a new player has arrived
     socket.on('connect', function() {
-        let cols = ['blue', 'lime', 'magenta', 'green', 'orange', 'red', 'yellow'];
+        params = getParams(window.location.href);
 
-        socket.emit('c_on_new_user_arrive', {col: cols[Math.floor(Math.random() * cols.length)]})
-
-        redrawHUD();
+        socket.emit('c_on_new_user_arrive', {
+            colour: '#' + params.colour,
+            name: params.name
+        });
     });
 
     socket.on('s_on_new_user_arrive', function(state) {
         tanks = state;
         serverTanks = state;
-
-        redrawHUD();
     });
     socket.on('s_on_user_leave', function(id) {
         delete tanks[id.id];
         delete serverTanks[id.id];
     });
-    socket.on('s_broadcast', function(state) {updateServerTankState(state);});
-    socket.on('s_on_tank_move', function(state) {updateServerTankState(state);});
+    socket.on('s_broadcast', function(state) { updateServerTankState(state); });
+    socket.on('s_on_tank_move', function(state) { updateServerTankState(state); });
     socket.on('s_spawn_projectile', function(newProj) {
         // Check if the projectile is new and isn't one of ours
         if (!(newProj.id in projectiles)) {
@@ -110,38 +105,51 @@ function onLoad() {
             projectiles[newProj.id] = proj;
         }
     });
+    socket.on('s_on_tank_explode', function(data) {
+        var id = data.tank;
+
+        tanks[id].isAlive = false;
+
+        if (id != socket.id) {
+            tanks[id].destructionTime = Date.now();
+        }
+
+        delete projectiles[data.projectile];
+    });
 
     // Set up callbacks
-    window.onkeyup = function(e) {pressedKeys[e.keyCode] = false;};
+    window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; };
     window.onkeydown = function(e) {
         pressedKeys[e.keyCode] = true;
 
         if (e.keyCode == SHOOT_KEY) {
             var myTank = getMyTank();
 
-            // Calculate the direction and location of the tank barrel
-            var dX = Math.cos(myTank.r);
-            var dY = Math.sin(myTank.r);
+            if (myTank && myTank.isAlive) {
+                // Calculate the direction and location of the tank barrel
+                var dX = Math.cos(myTank.r);
+                var dY = Math.sin(myTank.r);
 
-            var newId = socket.id + "|" + nextProjectileId;
+                var newId = socket.id + "|" + nextProjectileId;
 
-            projectiles[newId] = {
-                x: myTank.x + dX * TANK_LENGTH * (0.5 + BARREL_OVERHANG),
-                y: myTank.y + dY * TANK_LENGTH * (0.5 + BARREL_OVERHANG),
-                velX: dX * BULLET_SPEED,
-                velY: dY * BULLET_SPEED,
-                spawnTime: Date.now()
-            };
+                projectiles[newId] = {
+                    x: myTank.x + dX * TANK_LENGTH * (0.5 + BARREL_OVERHANG),
+                    y: myTank.y + dY * TANK_LENGTH * (0.5 + BARREL_OVERHANG),
+                    velX: dX * BULLET_SPEED,
+                    velY: dY * BULLET_SPEED,
+                    spawnTime: Date.now()
+                };
 
-            socket.emit("c_spawn_projectile", {
-                id: newId,
-                projectile: projectiles[newId]
-            });
+                socket.emit("c_spawn_projectile", {
+                    id: newId,
+                    projectile: projectiles[newId]
+                });
 
-            nextProjectileId += 1;
+                nextProjectileId += 1;
+            }
         }
     };
-    window.onbeforeunload = function() {socket.close();};
+    window.onbeforeunload = function() { socket.close(); };
 
     // Set the loops going
     setInterval(updateServer, 50);
@@ -164,14 +172,14 @@ function frame() {
     // Control my tank
     var myTank = getMyTank();
 
-    if (myTank) {
+    if (myTank && myTank.isAlive) {
         myTank.angularVelocity = 0;
-        if (pressedKeys[KEY_LEFT] == true) {myTank.angularVelocity -= 1;}
-        if (pressedKeys[KEY_RIGHT] == true) {myTank.angularVelocity += 1;}
+        if (pressedKeys[KEY_LEFT ] == true) { myTank.angularVelocity -= 1; }
+        if (pressedKeys[KEY_RIGHT] == true) { myTank.angularVelocity += 1; }
 
         myTank.forwardVelocity = 0;
-        if (pressedKeys[KEY_DOWN] == true) {myTank.forwardVelocity -= 1;}
-        if (pressedKeys[KEY_UP] == true) {myTank.forwardVelocity += 1;}
+        if (pressedKeys[KEY_DOWN] == true) { myTank.forwardVelocity -= 1; }
+        if (pressedKeys[KEY_UP  ] == true) { myTank.forwardVelocity += 1; }
 
         var isMoving = myTank.angularVelocity != 0 || myTank.forwardVelocity != 0;
 
@@ -187,7 +195,7 @@ function frame() {
         var tank = tanks[id];
 
         if (id == socket.id) {
-            // How to update the position of currently controlled tanks if the server tells us 
+            // How to update the position of currently controlled tanks if the server tells us
             // something different.  For now do nothing - the client knows best.
         } else {
             // How to update the position of other tanks according to what the server says.
@@ -237,6 +245,24 @@ function frame() {
         proj.x += proj.velX * timeDelta;
         proj.y += proj.velY * timeDelta;
 
+        // Basic bouncing
+        if (proj.x < 0) {
+            proj.velX = -proj.velX;
+            proj.x = -proj.x;
+        }
+        if (proj.x > 1) {
+            proj.velX = -proj.velX;
+            proj.x = 1 * 2 - proj.x;
+        }
+        if (proj.y < 0) {
+            proj.velY = -proj.velY;
+            proj.y = -proj.y;
+        }
+        if (proj.y > 1) {
+            proj.velY = -proj.velY;
+            proj.y = 1 * 2 - proj.y;
+        }
+
         if (Date.now() > proj.spawnTime + BULLET_LIFETIME * 1000) {
             projectilesToDestroy.push(id);
         }
@@ -244,6 +270,28 @@ function frame() {
 
     while (projectilesToDestroy.length > 0) {
         delete projectiles[projectilesToDestroy.pop()];
+    }
+
+    // Detect when my tank is destroyed
+    var myTank = getMyTank();
+
+    if (myTank && myTank.isAlive) {
+        for (const id in projectiles) {
+            var proj = projectiles[id];
+            var tankSpaceCoord = inverseTransformCoord(proj, myTank, myTank.r);
+
+            if (Math.abs(tankSpaceCoord.x) <= TANK_LENGTH / 2 + BULLET_RADIUS
+             && Math.abs(tankSpaceCoord.y) <= TANK_WIDTH / 2 + BULLET_RADIUS
+            ) {
+                myTank.isAlive = false;
+                myTank.destructionTime = Date.now();
+
+                socket.emit('c_on_tank_explode', {projectile: id});
+
+                delete projectiles[id];
+                break;
+            }
+        }
     }
 
     /* ===== RENDERING ==== */
@@ -306,6 +354,12 @@ function fillStrokeRect(x, y, w, h) {
 
 // Draw a tank
 function drawTank(tank, fillOverride) {
+    if (tank.isAlive) {
+        drawLiveTank(tank, fillOverride);
+    }
+}
+
+function drawLiveTank(tank, fillOverride) {
     // Save the canvas and move it so that the tank is at (0, 0) looking upwards
     ctx.save();
     ctx.translate(tank.x, tank.y);
@@ -346,6 +400,30 @@ function drawTank(tank, fillOverride) {
 
 
 
+/* ===== COLLISION ENGINE CODE ===== */
+function transformCoord(coord, origin, rotation) {
+    var rotatedX = coord.x * Math.cos(rotation) - coord.y * Math.sin(rotation);
+    var rotatedY = coord.x * Math.sin(rotation) + coord.y * Math.cos(rotation);
+
+    return {
+        x: rotatedX + origin.x,
+        y: rotatedY + origin.y
+    };
+}
+
+function inverseTransformCoord(coord, origin, rotation) {
+    var translatedX = coord.x - origin.x;
+    var translatedY = coord.y - origin.y;
+
+    return {
+        x: translatedX * Math.cos(-rotation) - translatedY * Math.sin(-rotation),
+        y: translatedX * Math.sin(-rotation) + translatedY * Math.cos(-rotation)
+    };
+}
+
+
+
+
 /* ===== UTILITIES ===== */
 function lerp(a, b, t) {
     return (1 - t) * a + t * b;
@@ -355,12 +433,21 @@ function getMyTank() {
     return tanks[socket.id];
 }
 
-function redrawHUD() {
-    console.log("I'm tryinggggg")
-
-    console.log(tanks)
-
-    for (let i = 0; i < tanks.length; i++) {
-        const tank = tanks[i];
-    }
-}
+/**
+ * Get the URL parameters
+ * source: https://css-tricks.com/snippets/javascript/get-url-variables/
+ * @param  {String} url The URL
+ * @return {Object}     The URL parameters
+ */
+function getParams(url) {
+	var params = {};
+	var parser = document.createElement('a');
+	parser.href = url;
+	var query = parser.search.substring(1);
+	var vars = query.split('&');
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split('=');
+		params[pair[0]] = decodeURIComponent(pair[1]);
+	}
+	return params;
+};
