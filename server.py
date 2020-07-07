@@ -32,6 +32,7 @@ logging.getLogger('werkzeug').setLevel(logging.ERROR)
 def display_landing_page():
     return render_template('landing-page.html')
 
+
 @app.route('/tanks')
 def display_tanks():
     return render_template('tanks.html')
@@ -40,6 +41,7 @@ def display_tanks():
 # Broadcast the state of the game every so often to avoid diversion
 def broadcast():
     socketio.emit('s_broadcast', game_state.tanks_json())
+
 
 def broadcast_loop():
     while True:
@@ -92,9 +94,11 @@ def on_tank_move(updated_tank):
     finally:
         tankLock.release()
 
+
 @socketio.on('c_on_tank_explode')
 def on_tank_explode(data):
-    socketio.emit('s_on_tank_explode', {'tank': request.sid, 'projectile': data['projectile']})
+    socketio.emit('s_on_tank_explode', {
+                  'tank': request.sid, 'projectile': data['projectile']})
 
     tankLock.acquire()
     try:
@@ -102,9 +106,11 @@ def on_tank_explode(data):
     finally:
         tankLock.release()
 
+
 @socketio.on('c_spawn_projectile')
 def on_spawn_projectile(data):
     socketio.emit('s_spawn_projectile', data)
+
 
 if __name__ == '__main__':
     # Spawn separate thread to broadcast the state of the game to avoid divergence
