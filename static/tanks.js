@@ -3,6 +3,7 @@ var canvas;
 var ctx;
 var viewRect;
 var socket;
+var HUDcontainer;
 
 // Key tracking
 var pressedKeys = {};
@@ -57,6 +58,9 @@ function onLoad() {
     // Get the canvas element and its drawing context
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
+
+    // Get HUD container element
+    HUDcontainer = document.getElementById("HUDcontainer")
 
     // Make sure that the canvas looks good on high DPI monitors (like mine)
     var dpr = window.devicePixelRatio || 1;
