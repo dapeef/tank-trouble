@@ -8,7 +8,7 @@ var socket;
 var pressedKeys = {};
 
 // Variables for the game
-var grid = { w: 1, h: 1 };
+var grid = {w: 1, h: 1};
 var tanks = {};
 var serverTanks = {};
 
@@ -88,8 +88,8 @@ function onLoad() {
         delete tanks[id.id];
         delete serverTanks[id.id];
     });
-    socket.on('s_broadcast', function(state) { updateServerTankState(state); });
-    socket.on('s_on_tank_move', function(state) { updateServerTankState(state); });
+    socket.on('s_broadcast', function(state) {updateServerTankState(state);});
+    socket.on('s_on_tank_move', function(state) {updateServerTankState(state);});
     socket.on('s_spawn_projectile', function(newProj) {
         // Check if the projectile is new and isn't one of ours
         if (!(newProj.id in projectiles)) {
@@ -118,7 +118,7 @@ function onLoad() {
     });
 
     // Set up callbacks
-    window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; };
+    window.onkeyup = function(e) {pressedKeys[e.keyCode] = false;};
     window.onkeydown = function(e) {
         pressedKeys[e.keyCode] = true;
 
@@ -149,7 +149,7 @@ function onLoad() {
             }
         }
     };
-    window.onbeforeunload = function() { socket.close(); };
+    window.onbeforeunload = function() {socket.close();};
 
     // Set the loops going
     setInterval(updateServer, 50);
@@ -174,12 +174,12 @@ function frame() {
 
     if (myTank && myTank.isAlive) {
         myTank.angularVelocity = 0;
-        if (pressedKeys[KEY_LEFT ] == true) { myTank.angularVelocity -= 1; }
-        if (pressedKeys[KEY_RIGHT] == true) { myTank.angularVelocity += 1; }
+        if (pressedKeys[KEY_LEFT] == true) {myTank.angularVelocity -= 1;}
+        if (pressedKeys[KEY_RIGHT] == true) {myTank.angularVelocity += 1;}
 
         myTank.forwardVelocity = 0;
-        if (pressedKeys[KEY_DOWN] == true) { myTank.forwardVelocity -= 1; }
-        if (pressedKeys[KEY_UP  ] == true) { myTank.forwardVelocity += 1; }
+        if (pressedKeys[KEY_DOWN] == true) {myTank.forwardVelocity -= 1;}
+        if (pressedKeys[KEY_UP] == true) {myTank.forwardVelocity += 1;}
 
         var isMoving = myTank.angularVelocity != 0 || myTank.forwardVelocity != 0;
 
@@ -280,8 +280,8 @@ function frame() {
             var proj = projectiles[id];
             var tankSpaceCoord = inverseTransformCoord(proj, myTank, myTank.r);
 
-            if (Math.abs(tankSpaceCoord.x) <= TANK_LENGTH / 2 + BULLET_RADIUS
-             && Math.abs(tankSpaceCoord.y) <= TANK_WIDTH / 2 + BULLET_RADIUS
+            if (Math.abs(tankSpaceCoord.x) <= TANK_LENGTH / 2 + BULLET_RADIUS &&
+                Math.abs(tankSpaceCoord.y) <= TANK_WIDTH / 2 + BULLET_RADIUS
             ) {
                 myTank.isAlive = false;
                 myTank.destructionTime = Date.now();
@@ -440,14 +440,14 @@ function getMyTank() {
  * @return {Object}     The URL parameters
  */
 function getParams(url) {
-	var params = {};
-	var parser = document.createElement('a');
-	parser.href = url;
-	var query = parser.search.substring(1);
-	var vars = query.split('&');
-	for (var i = 0; i < vars.length; i++) {
-		var pair = vars[i].split('=');
-		params[pair[0]] = decodeURIComponent(pair[1]);
-	}
-	return params;
+    var params = {};
+    var parser = document.createElement('a');
+    parser.href = url;
+    var query = parser.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        params[pair[0]] = decodeURIComponent(pair[1]);
+    }
+    return params;
 };
