@@ -179,28 +179,28 @@ def print_maze(walls):
     """ Prints a maze given in the 'right and down walls' format. """
 
     right_walls, bottom_walls = walls
-    size_x = len(bottom_walls[0])
-    size_y = len(right_walls)
-    print("+---" * size_x + "+")
+    width = len(bottom_walls[0])
+    height = len(right_walls)
+    print("+---" * width + "+")
 
-    for y in range(size_y):
+    for y in range(height):
         print("|   ", end="")
-        for x in range(size_x - 1):
+        for x in range(width - 1):
             if right_walls[y][x]:
                 print("|   ", end="")
             else:
                 print("    ", end="")
         print("|")
 
-        if y != size_y - 1:
-            for x in range(size_x):
+        if y != height - 1:
+            for x in range(width):
                 if bottom_walls[y][x]:
                     print("+---", end="")
                 else:
                     print("+   ", end="")
             print("+")
 
-    print("+---" * size_x + "+")
+    print("+---" * width + "+")
 
 
 if __name__ == "__main__":
