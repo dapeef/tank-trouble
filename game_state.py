@@ -8,6 +8,7 @@ from wall import Wall
 
 BULLET_DESPAWN_TIME = 5
 
+
 class GameState:
     def __init__(self):
         self._tanks = {}
@@ -112,7 +113,8 @@ class GameState:
 
         # Edges
         self._maze_walls.append(Wall.generate_horizontal_wall(0, 0, self._maze_width))
-        self._maze_walls.append(Wall.generate_horizontal_wall(0, self._maze_height, self._maze_width))
+        self._maze_walls.append(Wall.generate_horizontal_wall(
+            0, self._maze_height, self._maze_width))
         self._maze_walls.append(Wall.generate_vertical_wall(0, 0, self._maze_height))
         self._maze_walls.append(Wall.generate_vertical_wall(self._maze_width, 0, self._maze_height))
 
