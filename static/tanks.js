@@ -472,6 +472,9 @@ function redrawHUD() {
     }
 }
 
+
+
+
 /**
  * Get the URL parameters
  * source: https://css-tricks.com/snippets/javascript/get-url-variables/
