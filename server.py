@@ -102,7 +102,7 @@ def on_tank_move(tank_data):
 
 @socketio.on('c_on_tank_explode')
 def on_tank_explode(data):
-    socketio.emit('s_on_tank_explode', data);
+    socketio.emit('s_on_tank_explode', data)
 
     tankLock.acquire()
     try:
