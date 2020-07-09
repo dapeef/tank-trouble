@@ -92,7 +92,7 @@ def generate_maze(width, height, density=0.9):
     random.shuffle(enabled_edges)
 
     for i in range(round((width - 1) * (height - 1) * (1 - density))):
-        print(enabled_edges[i].position)
+        print(enabled_edges[i].position, enabled_edges[i].orientation)
         enabled_edges[i].enabled = False
 
     # Convert to output
