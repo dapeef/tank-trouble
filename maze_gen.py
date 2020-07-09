@@ -5,7 +5,7 @@ import random
 from wall import Wall
 
 
-def generate_maze(size_x, size_y, density=0.9):
+def generate_maze(width, height, density=0.9):
     """
     Generate a maze of a given size, returning the maze in the form of arrays of 'right walls' and
     'bottom walls'.
@@ -51,18 +51,18 @@ def generate_maze(size_x, size_y, density=0.9):
             self.enabled = enabled
 
     # Define variables
-    nodes = [Node(i + j * size_x, (i, j))
-             for j in range(size_y)
-             for i in range(size_x)]
+    nodes = [Node(i + j * width, (i, j))
+             for j in range(height)
+             for i in range(width)]
 
     edges = [
         Edge("r", (i, j), True)
-        for j in range(size_y)
-        for i in range(size_x - 1)
+        for j in range(height)
+        for i in range(width - 1)
     ] + [
         Edge("b", (i, j), True)
-        for j in range(size_y - 1)
-        for i in range(size_x)
+        for j in range(height - 1)
+        for i in range(width)
     ]
 
     random.shuffle(edges)
@@ -70,12 +70,12 @@ def generate_maze(size_x, size_y, density=0.9):
     # Do thingembob's algorithm
     for edge in edges:
         if edge.orientation == "r":
-            parent_nodes = [nodes[edge.position[0] + size_x * edge.position[1]],
-                            nodes[edge.position[0] + 1 + size_x * edge.position[1]]]
+            parent_nodes = [nodes[edge.position[0] + width * edge.position[1]],
+                            nodes[edge.position[0] + 1 + width * edge.position[1]]]
 
         else:
-            parent_nodes = [nodes[edge.position[0] + size_x * edge.position[1]],
-                            nodes[edge.position[0] + size_x * (edge.position[1] + 1)]]
+            parent_nodes = [nodes[edge.position[0] + width * edge.position[1]],
+                            nodes[edge.position[0] + width * (edge.position[1] + 1)]]
 
         if parent_nodes[0].group_id != parent_nodes[1].group_id:
             edge.enabled = False
@@ -91,12 +91,13 @@ def generate_maze(size_x, size_y, density=0.9):
 
     random.shuffle(enabled_edges)
 
-    for i in range(round((size_x - 1) * (size_y - 1) * (1 - density))):
+    for i in range(round((width - 1) * (height - 1) * (1 - density))):
+        print(enabled_edges[i].position)
         enabled_edges[i].enabled = False
 
     # Convert to output
-    right_edges = [[True for i in range(size_x - 1)] for i in range(size_y)]
-    bottom_edges = [[True for i in range(size_x)] for i in range(size_y - 1)]
+    right_edges = [[True for i in range(width - 1)] for i in range(height)]
+    bottom_edges = [[True for i in range(width)] for i in range(height - 1)]
 
     for edge in edges:
         if edge.orientation == "r":
@@ -203,4 +204,4 @@ def print_maze(walls):
 
 
 if __name__ == "__main__":
-    print_maze(generate_maze(10, 10, density=0.9))
+    print_maze(generate_maze(4, 4, density=0.9))
