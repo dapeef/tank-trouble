@@ -50,6 +50,7 @@ def generate_maze(size_x, size_y, density=0.9):
             self.position = position
             self.enabled = enabled
 
+    # Define variables
     nodes = [Node(i + j * size_x, (i, j))
              for j in range(size_y)
              for i in range(size_x)]
@@ -66,6 +67,7 @@ def generate_maze(size_x, size_y, density=0.9):
 
     random.shuffle(edges)
 
+    # Do thingembob's algorithm
     for edge in edges:
         if edge.orientation == "r":
             parent_nodes = [nodes[edge.position[0] + size_x * edge.position[1]],
@@ -84,6 +86,7 @@ def generate_maze(size_x, size_y, density=0.9):
                 if node.group_id == dead_group_id:
                     node.group_id = parent_nodes[0].group_id
 
+    # Apply density
     enabled_edges = list(filter(lambda edge: edge.enabled, edges))
 
     random.shuffle(enabled_edges)
@@ -91,6 +94,7 @@ def generate_maze(size_x, size_y, density=0.9):
     for i in range(round((size_x - 1) * (size_y - 1) * (1 - density))):
         enabled_edges[i].enabled = False
 
+    # Convert to output
     right_edges = [[True for i in range(size_x - 1)] for i in range(size_y)]
     bottom_edges = [[True for i in range(size_x)] for i in range(size_y - 1)]
 
