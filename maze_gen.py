@@ -175,6 +175,13 @@ def generate_walls_from_maze(width, height, maze):
     return walls
 
 
+def get_edge_by_position(position, orientation, edges):
+    for i in edges:
+        if i.orientation == orientation:
+            if i.position == position:
+                return i
+
+
 def print_maze(walls):
     """ Prints a maze given in the 'right and down walls' format. """
 
