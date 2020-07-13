@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Fusion 360, Shaper Origin Export Add-In, Version 1.5.0 -->
+<svg enable-background="new 0 0 0.2 0.1732051" height="0.1732051cm" shaper:fusionaddin="version:1.5.0" version="1.1" viewBox="0 0 0.2 0.1732051" width="0.2cm" x="0cm" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:shaper="http://www.shapertools.com/namespaces/shaper" xmlns:xlink="http://www.w3.org/1999/xlink" y="0cm">
+	<path d="M0.05,0.1732051 L-0,0.0866025 0.05,0 0.15,-0 0.2,0.0866025 0.15,0.1732051 0.05,0.1732051z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0,0.1732051)" vector-effect="non-scaling-stroke" />
+</svg>

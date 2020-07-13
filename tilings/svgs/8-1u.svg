@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Fusion 360, Shaper Origin Export Add-In, Version 1.5.0 -->
+<svg enable-background="new 0 0 0.312632 0.312632" height="0.312632cm" shaper:fusionaddin="version:1.5.0" version="1.1" viewBox="0 0 0.312632 0.312632" width="0.312632cm" x="0cm" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:shaper="http://www.shapertools.com/namespaces/shaper" xmlns:xlink="http://www.w3.org/1999/xlink" y="0cm">
+	<path d="M0.0707107,0 L0.1707107,0 0.2414214,0.0707107 0.2414214,0.1707107 0.1707107,0.2414214 0.0707107,0.2414214 0,0.1707107 0,0.0707107 0.0707107,0z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.0005,0.312132)" vector-effect="non-scaling-stroke" />
+	<path d="M0.1707107,0.2414214 L0.2414214,0.312132 0.312132,0.2414214 0.2414214,0.1707107" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.0005,0.312132)" vector-effect="non-scaling-stroke" />
+	<path d="M-0.0005,0.2414214 a0.0005,0.0005 0 1,1 0.001,0 a0.0005,0.0005 0 1,1 -0.001,0z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.0005,0.312132)" vector-effect="non-scaling-stroke" />
+	<path d="M0.2409214,0 a0.0005,0.0005 0 1,1 0.001,0 a0.0005,0.0005 0 1,1 -0.001,0z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.0005,0.312132)" vector-effect="non-scaling-stroke" />
+</svg>
