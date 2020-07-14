@@ -45,13 +45,13 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
                     pattern["right_unit"]["max_x"] > width:
                 print("eek x")
 
-                mod_x = -reps_x
+                mod_x -= reps_x
 
             if offset_calc(ref_x, ref_y, x + 1 + mod_x, y + 1 + mod_y, shift_vec).y + \
                     pattern["bottom_unit"]["max_y"] > height:
                 print("eek y")
 
-                mod_y = -reps_y
+                mod_y -= reps_y
 
             offset = offset_calc(ref_x, ref_y, x + mod_x, y + mod_y, shift_vec)
 
@@ -115,4 +115,5 @@ def display_edges(edges):
 
 
 if __name__ == "__main__":
-    display_edges(generate_maze(20, 20, pattern_id=0, density=0.9))
+    print(num_patterns())
+    display_edges(generate_maze(20, 20, pattern_id=5, density=0.9))
