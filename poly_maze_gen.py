@@ -26,7 +26,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
     print(pattern)
 
-    print(reps_x, reps_y)
+    print(reps_x, reps_y, "\t", ref_x, ref_y)
 
     raw_edges = []
 
@@ -37,11 +37,20 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             vec_y = vmath.Vector2(ref_y).as_percent(y)
 
             offset = vec_x + vec_y
-            print(vec_x, vec_y, offset)
+            # print(x, y, offset)
 
             for edge in pattern["unit"]["edges"]:
-                print(edge, offset, transpose_edge(edge, offset))
-                raw_edges.append(transpose_edge(edge, offset))
+                raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
+
+                print(raw_edges[-1])
+
+    unique_raw_edges = []
+
+    for i in raw_edges:
+        if not i in unique_raw_edges:
+            unique_raw_edges.append(i)
+
+    print(len(raw_edges), len(unique_raw_edges))
 
 
 def transpose_edge(edge, vector):
@@ -73,4 +82,4 @@ def num_patterns():
 
 
 if __name__ == "__main__":
-    generate_maze(5, 5, pattern_id=1, density=0.9)
+    generate_maze(10, 10, pattern_id=0, density=0.9)
