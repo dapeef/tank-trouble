@@ -59,7 +59,16 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
             patterns.append({
                 "name": filename[:-5],
                 "refs": refs,
-                "edges": edges
+                "unit_edges": edges
             })
+
+        elif pattern_type == "b":
+            patterns[-1]["bottom_unit_edges"] = edges
+
+        elif pattern_type == "r":
+            patterns[-1]["right_unit_edges"] = edges
+
+        elif pattern_type == "d":
+            patterns[-1]["dual_unit_edges"] = edges
 
 open("patterns.json", "w").write(json.dumps(patterns, indent=2))
