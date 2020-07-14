@@ -2,6 +2,7 @@
 
 import random
 import json
+import math
 
 # Read json
 patterns = json.loads(open("patterns.json").read())
@@ -15,6 +16,17 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
     ref_x = pattern["refs"][1]
     ref_y = pattern["refs"][0]
+
+    # Calculate repetitions
+    reps_x = max(math.floor((width - pattern["right_unit"]
+                             ["max_x"] + pattern["unit"]["min_x"]) / ref_x[0]), 0)
+    reps_y = max(math.floor((height - pattern["bottom_unit"]
+                             ["max_y"] + pattern["unit"]["min_y"]) / ref_y[1]), 0)
+
+    print(pattern)
+
+    print(reps_x, reps_y)
+
 
 def num_patterns():
     """
