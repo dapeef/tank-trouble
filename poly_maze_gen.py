@@ -34,6 +34,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
     print(reps_x, reps_y, "\t", ref_x, ref_y)
 
+    # Add all general units
     raw_edges = []
 
     for x in range(reps_x):
@@ -58,6 +59,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             for edge in pattern["unit"]["edges"]:
                 raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
 
+    # Remove duplicates
     edges = []
 
     for i in raw_edges:
