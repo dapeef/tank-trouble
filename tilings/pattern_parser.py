@@ -1,4 +1,4 @@
-""" poo """
+""" A script to parse all svg files into patterns.json to be read by poly_maze_gen.py """
 
 import os
 from xml.dom import minidom
