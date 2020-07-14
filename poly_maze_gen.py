@@ -30,7 +30,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     reps_y = max(math.floor((height - pattern["bottom_unit"]
                              ["max_y"] + pattern["unit"]["min_y"]) / ref_y[1]), 0)
 
-    print(pattern)
+    # print(pattern)
 
     print(reps_x, reps_y, "\t", ref_x, ref_y)
 
@@ -48,15 +48,15 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             for edge in pattern["unit"]["edges"]:
                 raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
 
-                print(raw_edges[-1])
-
-    unique_raw_edges = []
+    edges = []
 
     for i in raw_edges:
-        if not i in unique_raw_edges:
-            unique_raw_edges.append(i)
+        if not i in edges:
+            edges.append(i)
 
-    print(len(raw_edges), len(unique_raw_edges))
+    print(len(raw_edges), len(edges))
+
+    return edges
 
 
 def transpose_edge(edge, vector):
@@ -96,4 +96,4 @@ def display_edges(edges):
 
 
 if __name__ == "__main__":
-    generate_maze(10, 10, pattern_id=0, density=0.9)
+    display_edges(generate_maze(20, 20, pattern_id=0, density=0.9))
