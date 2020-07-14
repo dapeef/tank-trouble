@@ -79,6 +79,15 @@ def round_edge(edge, dec_points=0):
     ]
 
 
+def offset_calc(ref_x, ref_y, x_scale, y_scale, shift_vec):
+    """ Calculates the offset for the new unit """
+
+    vec_x = vmath.Vector2(ref_x).as_percent(x_scale)
+    vec_y = vmath.Vector2(ref_y).as_percent(y_scale)
+
+    return vec_x + vec_y + shift_vec
+
+
 def num_patterns():
     """
     Return the number of patterns available (with the intention of being able to automate the
