@@ -75,7 +75,7 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
                     "min_y": min_y,
                     "edges": edges
                 },
-                "botton_unit": {
+                "bottom_unit": {
                     "max_x": max_x,
                     "max_y": max_y,
                     "edges": edges
