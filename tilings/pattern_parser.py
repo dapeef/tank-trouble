@@ -70,8 +70,8 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
                 print("ref", points)
 
                 refs.append([
-                    round(points[0][0] + points[1][0], 3),
-                    round(points[0][1], 3)
+                    round(points[0][0] + points[1][0], 3) + 0,
+                    round(points[0][1], 3) + 0
                 ])
 
         refs.sort(key=lambda point: point[0])
