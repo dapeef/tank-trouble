@@ -20,6 +20,11 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
 
         refs = []
 
+        min_x = 0
+        min_y = 0
+        max_x = 0
+        max_y = 0
+
         for raw_path in svg.getElementsByTagName("path"):
             path = raw_path.attributes["d"].value
 
@@ -39,7 +44,13 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
                 points[i] = list(point.split(","))
 
                 for jnd, j in enumerate(points[i]):
-                    points[i][jnd] = str(round(float(j) * 10, 2) + 0)
+                    points[i][jnd] = round(float(j) * 10, 2) + 0
+
+                if is_path:
+                    min_x = min(points[i][0], min_x)
+                    min_y = min(points[i][1], min_y)
+                    max_x = max(points[i][0], max_x)
+                    max_y = max(points[i][1], max_y)
 
             print("points =", points)
 
@@ -59,16 +70,48 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
             patterns.append({
                 "name": filename[:-5],
                 "refs": refs,
-                "unit_edges": edges
+                "unit": {
+                    "min_x": min_x,
+                    "min_y": min_y,
+                    "edges": edges
+                },
+                "botton_unit": {
+                    "max_x": max_x,
+                    "max_y": max_y,
+                    "edges": edges
+                },
+                "right_unit": {
+                    "max_x": max_x,
+                    "max_y": max_y,
+                    "edges": edges
+                }
             })
 
         elif pattern_type == "b":
-            patterns[-1]["bottom_unit_edges"] = edges
+            patterns[-1]["bottom_unit"] = {
+                "max_x": max_x,
+                "max_y": max_y,
+                "edges": edges
+            }
 
         elif pattern_type == "r":
-            patterns[-1]["right_unit_edges"] = edges
+            patterns[-1]["right_unit"] = {
+                "max_x": max_x,
+                "max_y": max_y,
+                "edges": edges
+            }
 
         elif pattern_type == "d":
-            patterns[-1]["dual_unit_edges"] = edges
+            patterns[-1]["bottom_unit"] = {
+                "max_x": max_x,
+                "max_y": max_y,
+                "edges": edges
+            }
+
+            patterns[-1]["right_unit"] = {
+                "max_x": max_x,
+                "max_y": max_y,
+                "edges": edges
+            }
 
 open("patterns.json", "w").write(json.dumps(patterns, indent=2))
