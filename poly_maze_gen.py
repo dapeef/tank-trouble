@@ -19,6 +19,11 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     ref_x = pattern["refs"][1]
     ref_y = pattern["refs"][0]
 
+    shift_vec = vmath.Vector2([
+        - pattern["unit"]["min_x"],
+        - pattern["unit"]["min_y"]
+    ])
+
     # Calculate repetitions
     reps_x = max(math.floor((width - pattern["right_unit"]
                              ["max_x"] + pattern["unit"]["min_x"]) / ref_x[0]), 0)
@@ -37,7 +42,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         for y in range(reps_y):
             vec_y = vmath.Vector2(ref_y).as_percent(y)
 
-            offset = vec_x + vec_y
+            offset = vec_x + vec_y + shift_vec
             # print(x, y, offset)
 
             for edge in pattern["unit"]["edges"]:
