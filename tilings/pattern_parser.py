@@ -20,10 +20,10 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
 
         refs = []
 
-        min_x = 0
-        min_y = 0
-        max_x = 0
-        max_y = 0
+        min_x = 0  # pylint: disable=invalid-name
+        min_y = 0  # pylint: disable=invalid-name
+        max_x = 0  # pylint: disable=invalid-name
+        max_y = 0  # pylint: disable=invalid-name
 
         for raw_path in svg.getElementsByTagName("path"):
             path = raw_path.attributes["d"].value
