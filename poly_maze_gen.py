@@ -37,13 +37,23 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     raw_edges = []
 
     for x in range(reps_x):
-        vec_x = vmath.Vector2(ref_x).as_percent(x)
-
         for y in range(reps_y):
-            vec_y = vmath.Vector2(ref_y).as_percent(y)
+            mod_x = 0
+            mod_y = 0
 
-            offset = vec_x + vec_y + shift_vec
-            # print(x, y, offset)
+            while offset_calc(ref_x, ref_y, x + 1 + mod_x, y + 1 + mod_y, shift_vec).x + \
+                    pattern["right_unit"]["max_x"] > width:
+                print("eek x")
+
+                mod_x = -reps_x
+
+            if offset_calc(ref_x, ref_y, x + 1 + mod_x, y + 1 + mod_y, shift_vec).y + \
+                    pattern["bottom_unit"]["max_y"] > height:
+                print("eek y")
+
+                mod_y = -reps_y
+
+            offset = offset_calc(ref_x, ref_y, x + mod_x, y + mod_y, shift_vec)
 
             for edge in pattern["unit"]["edges"]:
                 raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
