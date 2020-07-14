@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Fusion 360, Shaper Origin Export Add-In, Version 1.5.0 -->
+<svg enable-background="new 0 0 0.2782051 0.3732051" height="0.3732051cm" shaper:fusionaddin="version:1.5.0" version="1.1" viewBox="0 0 0.2782051 0.3732051" width="0.2782051cm" x="0cm" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:shaper="http://www.shapertools.com/namespaces/shaper" xmlns:xlink="http://www.w3.org/1999/xlink" y="0cm">
+	<path d="M0.05,0.1866025 L-0,0.1 -0.05,0.1866025 0.05,0.1866025z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M0.05,0.1866025 L0.1366025,0.1366025 0.0866025,0.05 -0,0.1 -0.0866025,0.05 -0.1366025,0.1366025 -0.05,0.1866025 0,0.2732051 0.05,0.1866025z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M0.05,0.1866025 L0.1366025,0.2366025 0.0866025,0.3232051 0,0.2732051 -0.0866025,0.3232051 -0.1366025,0.2366025 -0.05,0.1866025" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M0.1366025,0.1366025 L0.1366025,0.2366025" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M-0.1366025,0.1366025 L-0.1366025,0.2366025" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M-0,0.1 L-0,0 -0.0866025,0.05" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M-0,0 L0.0866025,0.05" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M-0.005,0.2732051 a0.005,0.005 0 1,1 0.01,0 a0.005,0.005 0 1,1 -0.01,0z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M0,0.2732051 L0,0.3732051 0.0866025,0.3232051" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M0,0.3732051 L-0.0866025,0.3232051" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+	<path d="M0.1316025,0.1366025 a0.005,0.005 0 1,1 0.01,0 a0.005,0.005 0 1,1 -0.01,0z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.1366025,0.3732051)" vector-effect="non-scaling-stroke" />
+</svg>
