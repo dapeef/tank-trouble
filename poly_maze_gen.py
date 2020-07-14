@@ -25,10 +25,10 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     ])
 
     # Calculate repetitions
-    reps_x = max(math.floor((width - pattern["right_unit"]
-                             ["max_x"] + pattern["unit"]["min_x"]) / ref_x[0]), 0)
-    reps_y = max(math.floor((height - pattern["bottom_unit"]
-                             ["max_y"] + pattern["unit"]["min_y"]) / ref_y[1]), 0)
+    reps_x = max(math.floor((width - pattern["right_unit"]["max_x"] +
+                             pattern["unit"]["min_x"]) / ref_x[0]), 0)
+    reps_y = max(math.floor((height - pattern["bottom_unit"]["max_y"] +
+                             pattern["unit"]["min_y"]) / ref_y[1]), 0)
 
     # print(pattern)
 
