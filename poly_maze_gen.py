@@ -55,6 +55,15 @@ def transpose_edge(edge, vector):
     return [[new_vec_edge[0].x, new_vec_edge[0].y], [new_vec_edge[1].x, new_vec_edge[1].y]]
 
 
+def round_edge(edge, dec_points=0):
+    """ Rounds all points in an edge to a given number of decimal points """
+
+    return [
+        [round(edge[0][0], dec_points), round(edge[0][1], dec_points)],
+        [round(edge[1][0], dec_points), round(edge[1][1], dec_points)]
+    ]
+
+
 def num_patterns():
     """
     Return the number of patterns available (with the intention of being able to automate the
