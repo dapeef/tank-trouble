@@ -57,7 +57,10 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
             if is_path:
                 print("path")
                 for i in range(len(points) - 1):
-                    edges.append((points[i], points[i + 1]))
+                    edges.append(
+                        sorted(sorted((points[i], points[i + 1]),
+                                      key=lambda point: point[0]),
+                               key=lambda point: point[1]))
 
             else:
                 print("ref")
