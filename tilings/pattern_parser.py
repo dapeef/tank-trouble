@@ -44,7 +44,11 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
                 points[i] = list(point.split(","))
 
                 for jnd, j in enumerate(points[i]):
-                    points[i][jnd] = round(float(j) * 10, 2) + 0
+                    if is_path:
+                        points[i][jnd] = round(float(j) * 10, 3) + 0
+
+                    else:
+                        points[i][jnd] = float(j) * 10
 
                 if is_path:
                     min_x = min(points[i][0], min_x)
@@ -52,7 +56,7 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
                     max_x = max(points[i][0], max_x)
                     max_y = max(points[i][1], max_y)
 
-            print("points =", points)
+            #print("points =", points)
 
             if is_path:
                 print("path")
@@ -63,9 +67,12 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
                                key=lambda point: point[1]))
 
             else:
-                print("ref")
+                print("ref", points)
 
-                refs.append(points[0])
+                refs.append([
+                    round(points[0][0] + points[1][0], 3),
+                    round(points[0][1], 3)
+                ])
 
         refs.sort(key=lambda point: point[0])
 
