@@ -14,6 +14,6 @@
 	<path d="M0.1866025,0.6232051 L0.1866025,0.5232051" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.2232051,0.6732051)" vector-effect="non-scaling-stroke" />
 	<path d="M-0.05,0.3866025 L0,0.4732051 0.0866025,0.5232051" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.2232051,0.6732051)" vector-effect="non-scaling-stroke" />
 	<path d="M-0.0866025,0.5232051 L0,0.4732051" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.2232051,0.6732051)" vector-effect="non-scaling-stroke" />
-	<path d="M0.4093576,0.2366025 a0.00045,0.00045 0 1,1 0.0009,0 a0.00045,0.00045 0 1,1 -0.0009,0z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.2232051,0.6732051)" vector-effect="non-scaling-stroke" />
-	<path d="M-0.00045,0.4732051 a0.00045,0.00045 0 1,1 0.0009,0 a0.00045,0.00045 0 1,1 -0.0009,0z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.2232051,0.6732051)" vector-effect="non-scaling-stroke" />
+	<path d="M0.4048076,0.2366025 a0.005,0.005 0 1,1 0.01,0 a0.005,0.005 0 1,1 -0.01,0z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.2232051,0.6732051)" vector-effect="non-scaling-stroke" />
+	<path d="M-0.005,0.4732051 a0.005,0.005 0 1,1 0.01,0 a0.005,0.005 0 1,1 -0.01,0z" fill="none" shaper:cutDepth="0" shaper:pathType="guide" stroke="rgb(100,100,100)" transform="matrix(1,0,0,-1,0.2232051,0.6732051)" vector-effect="non-scaling-stroke" />
 </svg>
