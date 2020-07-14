@@ -47,7 +47,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
                 mod_x -= reps_x
 
-            if offset_calc(ref_x, ref_y, x + 1 + mod_x, y + 1 + mod_y, shift_vec).y + \
+            while offset_calc(ref_x, ref_y, x + 1 + mod_x, y + 1 + mod_y, shift_vec).y + \
                     pattern["bottom_unit"]["max_y"] > height:
                 print("eek y")
 
