@@ -4,6 +4,7 @@ import random
 import json
 import math
 import vectormath as vmath
+import matplotlib.pyplot as plt
 
 # Read json
 patterns = json.loads(open("patterns.json").read())
@@ -79,6 +80,14 @@ def num_patterns():
     pattern choosing)
     """
     return len(patterns)
+
+
+def display_edges(edges):
+    """ A function which displays the edges in an array using matplotlib """
+
+    for edge in edges:
+        plt.plot([edge[0][0], edge[1][0]], [-edge[0][1], -edge[1][1]])
+    plt.show()
 
 
 if __name__ == "__main__":
