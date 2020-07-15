@@ -1,6 +1,5 @@
 """ New module to handle maze generation based on tesselating patterns """
 
-import random
 import json
 import math
 import vectormath as vmath
