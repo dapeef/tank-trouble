@@ -160,14 +160,31 @@ def num_patterns():
     return len(patterns)
 
 
-def display_edges(edges):
+def display_edges(edges, bounding_box=(0, 0)):
     """ A function which displays the edges in an array using matplotlib """
 
     for edge in edges:
         plt.plot([edge[0][0], edge[1][0]], [-edge[0][1], -edge[1][1]])
+
+    if bounding_box != (0, 0):
+        plt.plot(
+            [0, 0, bounding_box[0], bounding_box[0], 0],
+            [0, -bounding_box[1], -bounding_box[1], 0, 0],
+            "k:",
+            linewidth=1
+        )
+    plt.gca().set_aspect('equal', adjustable='box')
     plt.show()
 
 
 if __name__ == "__main__":
     print(num_patterns())
-    display_edges(generate_maze(20, 20, pattern_id=5, density=0.9))
+    # display_edges(patterns[3]["right_unit"]["edges"])
+    w, h = 40, 20
+    display_edges(
+        generate_maze(
+            w, h,
+            pattern_id=5,
+            density=0.9),
+        bounding_box=(w, h)
+    )
