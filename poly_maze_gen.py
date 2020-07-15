@@ -80,7 +80,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         print(x, offset.x, offset.y)
 
-        for edge in pattern["unit"]["edges"]:
+        for edge in pattern["bottom_unit"]["edges"]:
             raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
 
     # Add right units
@@ -108,7 +108,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         print(x, offset.x, offset.y)
 
-        for edge in pattern["unit"]["edges"]:
+        for edge in pattern["right_unit"]["edges"]:
             raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
 
     # Remove duplicates
