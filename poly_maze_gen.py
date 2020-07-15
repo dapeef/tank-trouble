@@ -5,6 +5,8 @@ import json
 import math
 import vectormath as vmath
 import matplotlib.pyplot as plt
+from scipy.spatial import Delaunay
+import numpy as np
 
 # Read json
 patterns = json.loads(open("patterns.json").read())
@@ -118,7 +120,19 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         if not i in edges:
             edges.append(i)
 
-    print(len(raw_edges), len(edges))
+    #print(len(raw_edges), len(edges))
+
+    points = []
+    for edge in edges:
+        points.append(edge[0])
+        points.append(edge[1])
+
+    np_points = np.array(points)
+
+    tris = Delaunay(np_points)
+
+    plt.triplot(np_points[:, 0], np_points[:, 1], tris.simplices)
+    plt.show
 
     return edges
 
