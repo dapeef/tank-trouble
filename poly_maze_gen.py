@@ -7,6 +7,22 @@ import matplotlib.pyplot as plt
 from scipy.spatial import Delaunay
 import numpy as np
 
+# Maze id constants
+TRIANGLE = 0
+SQUARE = 1
+TALL_SQUARE_TRIANGLE = 2
+_SQUARE_ANGLED = 3
+PENTAGON = 4
+HEXAGON = 5
+_PADDED_SQUARE = 6
+_PADDED_HEXAGON = 7
+HEXAGON_PADDED_HEXAGON = 8
+_OCTAGON = 9
+_NONAGON = 10
+HEART = 11
+PADDED_DODECAGON = 12
+_DODECAGON = 13
+
 # Read json
 patterns = json.loads(open("patterns.json").read())
 
