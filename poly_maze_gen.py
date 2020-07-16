@@ -45,13 +45,13 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             while offset_calc(ref_x, ref_y, x + 1 + mod_x, y + mod_y, shift_vec).x + \
                     pattern["right_unit"]["max_x"] > width:
-                print("eek x")
+                # print("eek x")
 
                 mod_x -= reps_x
 
             while offset_calc(ref_x, ref_y, x + mod_x, y + 1 + mod_y, shift_vec).y + \
                     pattern["bottom_unit"]["max_y"] > height:
-                print("eek y")
+                # print("eek y")
 
                 mod_y -= reps_y
 
@@ -67,13 +67,13 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         while offset_calc(ref_x, ref_y, x, reps_y + mod_y, shift_vec).y + \
                 pattern["bottom_unit"]["max_y"] > height:
-            print("bottom eek y")
+            # print("bottom eek y")
 
             mod_y -= 1
 
         while offset_calc(ref_x, ref_y, x + mod_x, reps_y + mod_y, shift_vec).x + \
                 pattern["right_unit"]["max_x"] > width:
-            print("bottom eek x")
+            # print("bottom eek x")
 
             mod_x -= (reps_x)
 
@@ -83,7 +83,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             shift_vec
         )
 
-        print(x, offset.x, offset.y)
+        # print(x, offset.x, offset.y)
 
         for edge in pattern["bottom_unit"]["edges"]:
             raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
@@ -95,13 +95,13 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         while offset_calc(ref_x, ref_y, reps_x + mod_x, y, shift_vec).x + \
                 pattern["right_unit"]["max_x"] > width:
-            print("right eek x")
+            # print("right eek x")
 
             mod_x -= 1
 
         while offset_calc(ref_x, ref_y, reps_x + mod_x, y + mod_y, shift_vec).y + \
                 pattern["bottom_unit"]["max_y"] > height:
-            print("right eek y")
+            # print("right eek y")
 
             mod_y -= (reps_y + 1)
 
@@ -111,7 +111,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             shift_vec
         )
 
-        print(x, offset.x, offset.y)
+        # print(x, offset.x, offset.y)
 
         for edge in pattern["right_unit"]["edges"]:
             raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
@@ -123,7 +123,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         if not i in edges:
             edges.append(i)
 
-    #print(len(raw_edges), len(edges))
+    # print(len(raw_edges), len(edges))
 
     points = []
     for edge in edges:
