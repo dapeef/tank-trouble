@@ -141,8 +141,16 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         # print(x, offset.x, offset.y)
 
-        for edge in pattern["right_unit"]["edges"]:
-            raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
+        if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
+                round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
+            if y != reps_y:
+                unit_edges = pattern["right_unit"]["edges"]
+
+            else:
+                unit_edges = pattern["corner_unit"]["edges"]
+
+            for edge in unit_edges:
+                raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
 
     # Remove duplicates
     edges = []
