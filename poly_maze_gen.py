@@ -77,7 +77,11 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             mod_x -= (reps_x)
 
-        offset = offset_calc(ref_x, ref_y, x, reps_y + mod_y, shift_vec)
+        offset = offset_calc(
+            ref_x, ref_y,
+            x + mod_x, reps_y + mod_y,
+            shift_vec
+        )
 
         print(x, offset.x, offset.y)
 
