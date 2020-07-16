@@ -71,7 +71,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             mod_y -= 1
 
-        while offset_calc(ref_x, ref_y, reps_x + mod_x, y + mod_y, shift_vec).y + \
+        while offset_calc(ref_x, ref_y, x + mod_x, reps_y + mod_y, shift_vec).x + \
                 pattern["right_unit"]["max_x"] > width:
             print("bottom eek x")
 
@@ -200,7 +200,7 @@ if __name__ == "__main__":
     display_edges(
         generate_maze(
             w, h,
-            pattern_id=5,
+            pattern_id=2,
             density=0.9),
         bounding_box=(w, h)
     )
