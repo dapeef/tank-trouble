@@ -57,8 +57,20 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             offset = offset_calc(ref_x, ref_y, x + mod_x, y + mod_y, shift_vec)
 
-            for edge in pattern["unit"]["edges"]:
-                raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
+            print(offset)
+
+            if offset.x + pattern["unit"]["min_x"] >= 0 and \
+                    offset.y + pattern["unit"]["min_y"] >= 0:
+                for edge in pattern["unit"]["edges"]:
+                    raw_edges.append(
+                        round_edge(
+                            transpose_edge(
+                                edge,
+                                offset
+                            ),
+                            2
+                        )
+                    )
 
     # Add bottom units
     for x in range(reps_x):
