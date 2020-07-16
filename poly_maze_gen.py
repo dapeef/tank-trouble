@@ -192,8 +192,11 @@ def display_edges(edges, bounding_box=(0, 0)):
 
 if __name__ == "__main__":
     print(num_patterns())
+
     # display_edges(patterns[3]["right_unit"]["edges"])
+
     w, h = 40, 20
+
     display_edges(
         generate_maze(
             w, h,
