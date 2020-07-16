@@ -99,7 +99,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             mod_y -= 1
 
-        while round(offset_calc(ref_x, ref_y, x + mod_x, reps_y + mod_y, shift_vec).x +
+        while round(offset_calc(ref_x, ref_y, x + 1 + mod_x, reps_y + mod_y, shift_vec).x +
                     pattern["right_unit"]["max_x"], 2) > width:
             # print("bottom eek x")
 
@@ -113,8 +113,10 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         # print(x, offset.x, offset.y)
 
-        for edge in pattern["bottom_unit"]["edges"]:
-            raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
+        if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
+                round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
+            for edge in pattern["bottom_unit"]["edges"]:
+                raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
 
     # Add right units
     for y in range(reps_y + 1):
