@@ -94,6 +94,11 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
                     "max_x": max_x,
                     "max_y": max_y,
                     "edges": edges
+                },
+                "corner_unit": {
+                    "max_x": max_x,
+                    "max_y": max_y,
+                    "edges": edges
                 }
             })
 
@@ -104,8 +109,20 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
                 "edges": edges
             }
 
+            patterns[-1]["corner_unit"] = {
+                "max_x": max_x,
+                "max_y": max_y,
+                "edges": edges
+            }
+
         elif pattern_type == "r":
             patterns[-1]["right_unit"] = {
+                "max_x": max_x,
+                "max_y": max_y,
+                "edges": edges
+            }
+
+            patterns[-1]["corner_unit"] = {
                 "max_x": max_x,
                 "max_y": max_y,
                 "edges": edges
@@ -119,6 +136,19 @@ for root, directories, filenames in os.walk(".\\tilings\\svgs"):
             }
 
             patterns[-1]["right_unit"] = {
+                "max_x": max_x,
+                "max_y": max_y,
+                "edges": edges
+            }
+
+            patterns[-1]["corner_unit"] = {
+                "max_x": max_x,
+                "max_y": max_y,
+                "edges": edges
+            }
+
+        elif pattern_type == "z":
+            patterns[-1]["corner_unit"] = {
                 "max_x": max_x,
                 "max_y": max_y,
                 "edges": edges
