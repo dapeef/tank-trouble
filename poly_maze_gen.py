@@ -73,7 +73,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             offset = offset_calc(ref_x, ref_y, x + mod_x, y + mod_y, shift_vec)
 
-            print(offset)
+            # print(offset)
 
             if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                     round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
@@ -118,7 +118,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             for edge in pattern["bottom_unit"]["edges"]:
                 raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
 
-    # Add right units
+    # Add right and corner units
     for y in range(reps_y + 1):
         mod_x = 0
         mod_y = 0
@@ -173,7 +173,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     tris = Delaunay(np_points)
 
     plt.triplot(np_points[:, 0], np_points[:, 1], tris.simplices)
-    plt.show
 
     return edges
 
