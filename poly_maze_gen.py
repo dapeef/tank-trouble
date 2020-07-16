@@ -241,7 +241,7 @@ if __name__ == "__main__":
     display_edges(
         generate_maze(
             w, h,
-            pattern_id=2,
+            pattern_id=DODECAGON,
             density=0.9),
         bounding_box=(w, h)
     )
