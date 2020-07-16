@@ -59,14 +59,14 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             mod_x = 0
             mod_y = 0
 
-            while offset_calc(ref_x, ref_y, x + 1 + mod_x, y + mod_y, shift_vec).x + \
-                    pattern["right_unit"]["max_x"] > width:
+            while round(offset_calc(ref_x, ref_y, x + 1 + mod_x, y + mod_y, shift_vec).x +
+                        pattern["right_unit"]["max_x"], 2) > width:
                 # print("eek x")
 
                 mod_x -= reps_x
 
-            while offset_calc(ref_x, ref_y, x + mod_x, y + 1 + mod_y, shift_vec).y + \
-                    pattern["bottom_unit"]["max_y"] > height:
+            while round(offset_calc(ref_x, ref_y, x + mod_x, y + 1 + mod_y, shift_vec).y +
+                        pattern["bottom_unit"]["max_y"], 2) > height:
                 # print("eek y")
 
                 mod_y -= reps_y
@@ -75,8 +75,8 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             print(offset)
 
-            if offset.x + pattern["unit"]["min_x"] >= 0 and \
-                    offset.y + pattern["unit"]["min_y"] >= 0:
+            if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
+                    round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
                 for edge in pattern["unit"]["edges"]:
                     raw_edges.append(
                         round_edge(
@@ -93,14 +93,14 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         mod_x = 0
         mod_y = 0
 
-        while offset_calc(ref_x, ref_y, x, reps_y + mod_y, shift_vec).y + \
-                pattern["bottom_unit"]["max_y"] > height:
+        while round(offset_calc(ref_x, ref_y, x, reps_y + mod_y, shift_vec).y +
+                    pattern["bottom_unit"]["max_y"], 2) > height:
             # print("bottom eek y")
 
             mod_y -= 1
 
-        while offset_calc(ref_x, ref_y, x + mod_x, reps_y + mod_y, shift_vec).x + \
-                pattern["right_unit"]["max_x"] > width:
+        while round(offset_calc(ref_x, ref_y, x + mod_x, reps_y + mod_y, shift_vec).x +
+                    pattern["right_unit"]["max_x"], 2) > width:
             # print("bottom eek x")
 
             mod_x -= (reps_x)
@@ -121,14 +121,14 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         mod_x = 0
         mod_y = 0
 
-        while offset_calc(ref_x, ref_y, reps_x + mod_x, y, shift_vec).x + \
-                pattern["right_unit"]["max_x"] > width:
+        while round(offset_calc(ref_x, ref_y, reps_x + mod_x, y, shift_vec).x +
+                    pattern["right_unit"]["max_x"], 2) > width:
             # print("right eek x")
 
             mod_x -= 1
 
-        while offset_calc(ref_x, ref_y, reps_x + mod_x, y + mod_y, shift_vec).y + \
-                pattern["bottom_unit"]["max_y"] > height:
+        while round(offset_calc(ref_x, ref_y, reps_x + mod_x, y + mod_y, shift_vec).y +
+                    pattern["bottom_unit"]["max_y"], 2) > height:
             # print("right eek y")
 
             mod_y -= (reps_y + 1)
