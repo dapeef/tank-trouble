@@ -236,7 +236,7 @@ if __name__ == "__main__":
 
     # display_edges(patterns[3]["right_unit"]["edges"])
 
-    w, h = 40, 20
+    w, h = 10, 5
 
     display_edges(
         generate_maze(
