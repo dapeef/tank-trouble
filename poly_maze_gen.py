@@ -159,8 +159,11 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
     points = []
     for edge in edges:
-        points.append(edge[0])
-        points.append(edge[1])
+        if not edge[0] in points:
+            points.append(edge[0])
+
+        if not edge[1] in points:
+            points.append(edge[1])
 
     np_points = np.array(points)
 
