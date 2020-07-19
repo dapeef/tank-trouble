@@ -335,7 +335,7 @@ if __name__ == "__main__":
 
     w, h = 10, 5
 
-    display_edges(
+    draw_edges(
         generate_maze(
             w, h,
             pattern_id=DODECAGON,
