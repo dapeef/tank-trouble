@@ -299,7 +299,6 @@ def draw_edges(edges, bounding_box=(0, 0), flip=True):
             linewidth=1
         )
     plt.gca().set_aspect('equal', adjustable='box')
-    plt.show()
 
 
 if __name__ == "__main__":
@@ -316,3 +315,5 @@ if __name__ == "__main__":
             density=0.9),
         bounding_box=(w, h)
     )
+
+    plt.show()
