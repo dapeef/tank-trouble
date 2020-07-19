@@ -47,10 +47,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     reps_y = max(math.floor((height - pattern["bottom_unit"]["max_y"] +
                              pattern["unit"]["min_y"]) / ref_y[1]), 0)
 
-    # print(pattern)
-
-    print(reps_x, reps_y, "\t", ref_x, ref_y)
-
     # Add all general units
     raw_edges = []
 
@@ -160,8 +156,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     for i in raw_edges:
         if not i in edges:
             edges.append(i)
-
-    # print(len(raw_edges), len(edges))
 
     points = []
     for edge in edges:
