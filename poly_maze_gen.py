@@ -27,6 +27,7 @@ DODECAGON = 13
 patterns = json.loads(open("patterns.json").read())
 
 
+# pylint: disable=too-many-locals, too-many-branches, too-many-statements
 def generate_maze(width, height, pattern_id=0, density=0.9):
     """ Generate a maze of given width and height in the pattern outlined in patterns.json """
 
@@ -157,6 +158,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         if not i in edges:
             edges.append(i)
 
+    # Implement Delaunay
     points = []
     for edge in edges:
         if not edge[0] in points:
@@ -284,7 +286,7 @@ def display_edges(edges, bounding_box=(0, 0)):
 
 
 if __name__ == "__main__":
-    print(num_patterns())
+    print("num patterns =", num_patterns(), "\n")
 
     # display_edges(patterns[3]["right_unit"]["edges"])
 
