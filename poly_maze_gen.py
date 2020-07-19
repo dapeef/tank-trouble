@@ -59,19 +59,13 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             while round(offset_calc(ref_x, ref_y, x + 1 + mod_x, y + mod_y, shift_vec).x +
                         pattern["right_unit"]["max_x"], 2) > width:
-                # print("eek x")
-
                 mod_x -= reps_x
 
             while round(offset_calc(ref_x, ref_y, x + mod_x, y + 1 + mod_y, shift_vec).y +
                         pattern["bottom_unit"]["max_y"], 2) > height:
-                # print("eek y")
-
                 mod_y -= reps_y
 
             offset = offset_calc(ref_x, ref_y, x + mod_x, y + mod_y, shift_vec)
-
-            # print(offset)
 
             if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                     round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
@@ -93,14 +87,10 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         while round(offset_calc(ref_x, ref_y, x, reps_y + mod_y, shift_vec).y +
                     pattern["bottom_unit"]["max_y"], 2) > height:
-            # print("bottom eek y")
-
             mod_y -= 1
 
         while round(offset_calc(ref_x, ref_y, x + 1 + mod_x, reps_y + mod_y, shift_vec).x +
                     pattern["right_unit"]["max_x"], 2) > width:
-            # print("bottom eek x")
-
             mod_x -= (reps_x)
 
         offset = offset_calc(
@@ -108,8 +98,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             x + mod_x, reps_y + mod_y,
             shift_vec
         )
-
-        # print(x, offset.x, offset.y)
 
         if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                 round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
@@ -123,14 +111,10 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         while round(offset_calc(ref_x, ref_y, reps_x + mod_x, y, shift_vec).x +
                     pattern["right_unit"]["max_x"], 2) > width:
-            # print("right eek x")
-
             mod_x -= 1
 
         while round(offset_calc(ref_x, ref_y, reps_x + mod_x, y + mod_y, shift_vec).y +
                     pattern["bottom_unit"]["max_y"], 2) > height:
-            # print("right eek y")
-
             mod_y -= (reps_y + 1)
 
         offset = offset_calc(
@@ -138,8 +122,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             reps_x + mod_x, y + mod_y,
             shift_vec
         )
-
-        # print(x, offset.x, offset.y)
 
         if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                 round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
@@ -190,8 +172,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             edges
         )
 
-        #print("group", tri_group)
-
         face_edges = [
             sort_edge([
                 list(np_points[tris.simplices][tri][i]),
@@ -215,7 +195,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         for edge in exterior_face_edges:
             if not edge in edges:
                 valid = False
-                print("INVALID")
 
         if valid:
             draw_edges(exterior_face_edges, flip=False)
@@ -259,8 +238,6 @@ def find_adjacent_tris(tri, tri_group, tris, np_points, edges):
 
     tri_points = [list(i) for i in np_points[tris.simplices][tri]]
 
-    # print("\n")
-
     for i in tris.neighbors[tri]:
         if not i in tri_group and i != -1:
             i_points = [list(i) for i in np_points[tris.simplices][i]]
@@ -268,8 +245,6 @@ def find_adjacent_tris(tri, tri_group, tris, np_points, edges):
             edge = sort_edge(
                 list(filter(lambda point: point in tri_points, i_points))
             )
-
-            #print("edge", edge)
 
             if not edge in edges:
                 tri_group.append(i)
@@ -326,8 +301,6 @@ if __name__ == "__main__":
     print("num patterns =", num_patterns(), "\n")
     start_time = time.time()
     print("start")
-
-    # draw_edges(patterns[3]["right_unit"]["edges"])
 
     w, h = 10, 5
 
