@@ -2,11 +2,11 @@
 
 import json
 import math
+import time
+import numpy as np
 import vectormath as vmath
 import matplotlib.pyplot as plt
 from scipy.spatial import Delaunay
-import numpy as np
-import time
 
 # Maze id constants
 TRIANGLE = 0
