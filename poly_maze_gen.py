@@ -181,11 +181,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
     tri_ids = list(range(len(tris.simplices)))
 
-    tri_groups = []
-
-    # for i, tri in enumerate(tris.simplices):
-    #    print(i, tri, np_points[tris.simplices][i], tris.neighbors[i])
-
     while len(tri_ids) > 0:
         tri_group = find_adjacent_tris(
             tri_ids[0],
@@ -195,7 +190,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             edges
         )
 
-        print("group", tri_group)
+        #print("group", tri_group)
 
         face_edges = [
             sort_edge([
@@ -226,8 +221,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             draw_edges(exterior_face_edges, flip=False)
 
         tri_ids = list(filter(lambda x: x not in tri_group, tri_ids))
-
-    print(tri_groups)
 
     return edges
 
