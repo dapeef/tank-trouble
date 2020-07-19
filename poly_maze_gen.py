@@ -276,11 +276,20 @@ def num_patterns():
     return len(patterns)
 
 
-def display_edges(edges, bounding_box=(0, 0)):
+def draw_edges(edges, bounding_box=(0, 0), flip=True):
     """ A function which displays the edges in an array using matplotlib """
 
+    if flip:
+        flip_sf = -1
+
+    else:
+        flip_sf = 1
+
     for edge in edges:
-        plt.plot([edge[0][0], edge[1][0]], [-edge[0][1], -edge[1][1]])
+        plt.plot(
+            [edge[0][0], edge[1][0]],
+            [edge[0][1]*flip_sf, edge[1][1]*flip_sf]
+        )
 
     if bounding_box != (0, 0):
         plt.plot(
