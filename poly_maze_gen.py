@@ -244,11 +244,8 @@ def find_adjacent_tris(tri, tri_group, tris, np_points, edges):
         if not i in tri_group and i != -1:
             i_points = [list(i) for i in np_points[tris.simplices][i]]
 
-            edge = sorted(
-                sorted(
-                    list(filter(lambda point: point in tri_points, i_points)),
-                    key=lambda point: point[0]),
-                key=lambda point: point[1]
+            edge = sort_edge(
+                list(filter(lambda point: point in tri_points, i_points))
             )
 
             #print("edge", edge)
@@ -258,6 +255,17 @@ def find_adjacent_tris(tri, tri_group, tris, np_points, edges):
                 find_adjacent_tris(i, tri_group, tris, np_points, edges)
 
     return tri_group
+
+
+def sort_edge(edge):
+    """ Function to sort an edge so all edges are consistent and comparable """
+
+    return sorted(
+        sorted(
+            edge,
+            key=lambda point: point[0]),
+        key=lambda point: point[1]
+    )
 
 
 def num_patterns():
