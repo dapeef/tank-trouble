@@ -173,6 +173,34 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     tris = Delaunay(np_points)
 
     plt.triplot(np_points[:, 0], np_points[:, 1], tris.simplices)
+    plt.plot(
+        np_points[tris.simplices][0][:, 0],
+        np_points[tris.simplices][0][:, 1],
+        'o'
+    )
+
+    tri_ids = list(range(len(tris.simplices)))
+
+    tri_groups = []
+
+    # for i, tri in enumerate(tris.simplices):
+    #    print(i, tri, np_points[tris.simplices][i], tris.neighbors[i])
+
+    while len(tri_ids) > 0:
+        print(tri_ids)
+        tri_groups.append(
+            find_adjacent_tris(
+                tri_ids[0],
+                [tri_ids[0]],
+                tris,
+                np_points,
+                edges
+            )
+        )
+
+        tri_ids = list(filter(lambda x: x not in tri_groups[-1], tri_ids))
+
+    print(tri_groups)
 
     return edges
 
