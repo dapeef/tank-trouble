@@ -294,7 +294,13 @@ def draw_edges(edges, bounding_box=(0, 0), flip=True):
             "k:",
             linewidth=1
         )
+
+
+def show_drawing():
+    """ Applies plt settings and shows plt window """
+
     plt.gca().set_aspect('equal', adjustable='box')
+    plt.show()
 
 
 if __name__ == "__main__":
@@ -314,4 +320,4 @@ if __name__ == "__main__":
 
     print("finished in", round(time.time() - start_time, 3), "seconds")
 
-    plt.show()
+    show_drawing()
