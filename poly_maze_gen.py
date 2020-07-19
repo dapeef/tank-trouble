@@ -171,7 +171,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
     tris = Delaunay(np_points)
 
-    plt.triplot(np_points[:, 0], np_points[:, 1], tris.simplices)
+    #plt.triplot(np_points[:, 0], np_points[:, 1], tris.simplices)
     plt.plot(
         np_points[tris.simplices][0][:, 0],
         np_points[tris.simplices][0][:, 1],
@@ -186,18 +186,45 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     #    print(i, tri, np_points[tris.simplices][i], tris.neighbors[i])
 
     while len(tri_ids) > 0:
-        print(tri_ids)
-        tri_groups.append(
-            find_adjacent_tris(
-                tri_ids[0],
-                [tri_ids[0]],
-                tris,
-                np_points,
-                edges
-            )
+        tri_group = find_adjacent_tris(
+            tri_ids[0],
+            [tri_ids[0]],
+            tris,
+            np_points,
+            edges
         )
 
-        tri_ids = list(filter(lambda x: x not in tri_groups[-1], tri_ids))
+        print("group", tri_group)
+
+        face_edges = [
+            sort_edge([
+                list(np_points[tris.simplices][tri][i]),
+                list(np_points[tris.simplices][tri][(i + 1) % 3])
+            ])
+            for tri in tri_group
+            for i in range(3)
+        ]
+
+        exterior_face_edges = []
+
+        for edge in face_edges:
+            if not edge in exterior_face_edges:
+                exterior_face_edges.append(edge)
+
+            else:
+                exterior_face_edges.pop(exterior_face_edges.index(edge))
+
+        valid = True
+
+        for edge in exterior_face_edges:
+            if not edge in edges:
+                valid = False
+                print("INVALID")
+
+        if valid:
+            draw_edges(exterior_face_edges, flip=False)
+
+        tri_ids = list(filter(lambda x: x not in tri_group, tri_ids))
 
     print(tri_groups)
 
