@@ -331,7 +331,7 @@ def draw_edges(edges, bounding_box=(0, 0), flip=True):
 if __name__ == "__main__":
     print("num patterns =", num_patterns(), "\n")
 
-    # display_edges(patterns[3]["right_unit"]["edges"])
+    # draw_edges(patterns[3]["right_unit"]["edges"])
 
     w, h = 10, 5
 
