@@ -6,6 +6,7 @@ import vectormath as vmath
 import matplotlib.pyplot as plt
 from scipy.spatial import Delaunay
 import numpy as np
+import time
 
 # Maze id constants
 TRIANGLE = 0
@@ -330,6 +331,8 @@ def draw_edges(edges, bounding_box=(0, 0), flip=True):
 
 if __name__ == "__main__":
     print("num patterns =", num_patterns(), "\n")
+    start_time = time.time()
+    print("start")
 
     # draw_edges(patterns[3]["right_unit"]["edges"])
 
@@ -342,5 +345,7 @@ if __name__ == "__main__":
             density=0.9),
         bounding_box=(w, h)
     )
+
+    print("finished in", round(time.time() - start_time, 3), "seconds")
 
     plt.show()
