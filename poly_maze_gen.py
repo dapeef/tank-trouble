@@ -56,9 +56,20 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     reps_y = max(math.floor((height - pattern["bottom_unit"]["max_y"] +
                              pattern["unit"]["min_y"]) / ref_y[1]), 0)
 
-    # Add all general units
-    raw_edges = []
+    # Create graphs for units
+    general_unit = Graph.create_graph_from_json_edges(
+        pattern["unit"]["edges"])
 
+    bottom_unit = Graph.create_graph_from_json_edges(
+        pattern["bottom_unit"]["edges"])
+
+    right_unit = Graph.create_graph_from_json_edges(
+        pattern["right_unit"]["edges"])
+
+    corner_unit = Graph.create_graph_from_json_edges(
+        pattern["corner_unit"]["edges"])
+
+    # Add all general units
     for x in range(reps_x):
         for y in range(reps_y):
             mod_x = 0
