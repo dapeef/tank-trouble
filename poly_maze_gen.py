@@ -144,69 +144,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
                 Graph.translated(unit, offset.x, offset.y)
             )
 
-    '''
-    # Implement Delaunay
-    points = []
-    for edge in edges:
-        if not edge[0] in points:
-            points.append(edge[0])
-
-        if not edge[1] in points:
-            points.append(edge[1])
-
-    np_points = np.array(points)
-
-    tris = Delaunay(np_points)
-
-    #plt.triplot(np_points[:, 0], np_points[:, 1], tris.simplices)
-    plt.plot(
-        np_points[tris.simplices][0][:, 0],
-        np_points[tris.simplices][0][:, 1],
-        'o'
-    )
-
-    tri_ids = list(range(len(tris.simplices)))
-
-    while len(tri_ids) > 0:
-        tri_group = find_adjacent_tris(
-            tri_ids[0],
-            [tri_ids[0]],
-            tris,
-            np_points,
-            edges
-        )
-
-        face_edges = [
-            sort_edge([
-                list(np_points[tris.simplices][tri][i]),
-                list(np_points[tris.simplices][tri][(i + 1) % 3])
-            ])
-            for tri in tri_group
-            for i in range(3)
-        ]
-
-        exterior_face_edges = []
-
-        for edge in face_edges:
-            if not edge in exterior_face_edges:
-                exterior_face_edges.append(edge)
-
-            else:
-                exterior_face_edges.pop(exterior_face_edges.index(edge))
-
-        valid = True
-
-        for edge in exterior_face_edges:
-            if not edge in edges:
-                valid = False
-
-        if valid:
-            draw_edges(exterior_face_edges, flip=False)
-
-        tri_ids = list(filter(lambda x: x not in tri_group, tri_ids))
-
-    return edges
-    '''
+    graph.detect_faces()
 
     print("finished in", round(time.time() - start_time, 3), "seconds")
 

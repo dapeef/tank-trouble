@@ -203,6 +203,66 @@ class Graph():
             point.x += x
             point.y += y
 
+    def detect_faces(self):
+        """ Used Delaunay to detect faces and adds them to the graph """
+
+        # Implement Delaunay
+        np_points = np.array(self.Point.raw_array(self._points))
+
+        tris = Delaunay(np_points)
+
+        # plt.triplot(np_points[:, 0], np_points[:, 1], tris.simplices)
+
+        tri_ids = list(range(len(tris.simplices)))
+
+        faces_edges = []
+
+        while len(tri_ids) > 0:
+            tri_group = self._find_adjacent_tris(
+                tri_ids[0],
+                [tri_ids[0]],
+                tris,
+                np_points,
+                edges
+            )
+
+            face_edges = [
+                self.Edge.sort_edge([
+                    list(np_points[tris.simplices][tri][i]),
+                    list(np_points[tris.simplices][tri][(i + 1) % 3])
+                ])
+                for tri in tri_group
+                for i in range(3)
+            ]
+
+            exterior_face_edges = []
+
+            for edge in face_edges:
+                if not edge in exterior_face_edges:
+                    exterior_face_edges.append(edge)
+
+                else:
+                    exterior_face_edges.pop(exterior_face_edges.index(edge))
+
+            valid = True
+
+            for edge in exterior_face_edges:
+                if not edge in edges:
+                    valid = False
+
+            if valid:
+                faces_edges.append(exterior_face_edges)
+
+            tri_ids = list(filter(lambda x: x not in tri_group, tri_ids))
+
+        # Create faces
+        print(faces_edges)
+
+        faces = []
+
+        for i, face_edge in enumerate(faces_edges):
+            faces.append(Face(i, face_edge))
+
     def show(self, show_edges=True, show_points=False, flip=False, bounding_box=[0, 0]):
         """ Applies plt settings and shows plt window """
 
