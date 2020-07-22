@@ -212,7 +212,7 @@ class Graph():
         if bounding_box != [0, 0]:
             plt.plot(
                 [0, bounding_box[0], bounding_box[0], 0, 0],
-                [0, 0, bounding_box[1], bounding_box[1], 0],
+                [0, 0, bounding_box[1] * flip_sf, bounding_box[1] * flip_sf, 0],
                 "k:"
             )
 

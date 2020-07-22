@@ -301,9 +301,9 @@ if __name__ == "__main__":
     start_time = time.time()
     print("start")
 
-    w, h = 10, 5
+    w, h = 10, 10
 
     generate_maze(
         w, h,
-        pattern_id=DODECAGON,
-        density=0.9).show(bounding_box=[w, h])
+        pattern_id=TRIANGLE,
+        density=0.9).show(flip=True, bounding_box=[w, h])
