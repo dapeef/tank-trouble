@@ -147,6 +147,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             graph.combine_graph_into_graph(unit)
             unit.translate(-offset.x, -offset.y)
 
+    '''
     # Implement Delaunay
     points = []
     for edge in edges:
@@ -208,7 +209,11 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         tri_ids = list(filter(lambda x: x not in tri_group, tri_ids))
 
     return edges
+    '''
 
+    print("finished in", round(time.time() - start_time, 3), "seconds")
+
+    return graph
 
 def transpose_edge(edge, vector):
     """ A function to transpose an edge by a given x and y value """
@@ -316,14 +321,7 @@ if __name__ == "__main__":
 
     w, h = 10, 5
 
-    draw_edges(
-        generate_maze(
-            w, h,
-            pattern_id=DODECAGON,
-            density=0.9),
-        bounding_box=(w, h)
-    )
-
-    print("finished in", round(time.time() - start_time, 3), "seconds")
-
-    show_drawing()
+    generate_maze(
+        w, h,
+        pattern_id=DODECAGON,
+        density=0.9).show()
