@@ -84,3 +84,25 @@ class Graph():
         def add_child(self, edge):
             """ Adds an edge as a child of the face """
             self.children.append(edge)
+
+    # Private functions
+    def _add_point(self, x: float, y: float):
+        """ Adds point to graph and returns point (even if already exists) """
+
+        if not [x, y] in self.Point.raw_array(self._points):
+            point = self.Point(x, y)
+
+            self._points.append(point)
+
+        else:
+            point = list(
+                filter(
+                    lambda a: a.raw() == [x, y], self._points
+                ))[0]
+
+        return point
+
+    def _add_point_from_json(self, point: [float]):
+        """ Adds point from [x, y] format"""
+
+        self._add_point(point[0], point[1])
