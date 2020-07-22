@@ -1,6 +1,8 @@
 """ Module containing the Graph class """
 
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy.spatial import Delaunay
 
 
 class Graph():
