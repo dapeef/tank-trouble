@@ -106,3 +106,33 @@ class Graph():
         """ Adds point from [x, y] format"""
 
         self._add_point(point[0], point[1])
+
+    def _add_edge(self, start: Point, end: Point):
+        """ Adds edge to graph and returns edge (even if already exists) """
+
+        if not [start, end] in [[edge.start, edge.end] for edge in self._edges]:
+            edge = self.Edge(start, end)
+
+            self._edges.append(edge)
+
+            start.parents.append(edge)
+            end.parents.append(edge)
+
+        else:
+            edge = list(
+                filter(
+                    lambda a: [a.start, a.end] == [start, end], self._edges
+                ))[0]
+
+        return edge
+
+    def _add_edge_from_json(self, edge: [[float]]):
+        """ Adds edge from [[x1, y1], [x2, y2]] format and returns edge (even if already exists) """
+
+        edge = Graph.Edge.sort_edge(edge)
+
+        start = self._add_point(edge[0][0], edge[0][1])
+        end = self._add_point(edge[1][0], edge[1][1])
+
+        return self._add_edge(start, end)
+
