@@ -166,6 +166,18 @@ class Graph():
         return self._add_face([self._add_edge_from_json(edge) for edge in edges])
 
     # Public functions
+    def combine_graph_into_graph(self, graph):
+        """ Combines existing Graph's edges with another Graph """
+
+        for face in graph._faces:  # pylint: disable=protected-access
+            self._add_face_from_json(face.raw())
+
+        for edge in graph._edges:  # pylint: disable=protected-access
+            self._add_edge_from_json(edge.raw())
+
+        for point in graph._points:  # pylint: disable=protected-access
+            self._add_point_from_json(point.raw())
+
     def translate(self, x, y):
         """ Translates the graph by (x, y) """
 
