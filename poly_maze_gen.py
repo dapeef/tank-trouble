@@ -87,9 +87,9 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                     round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
-                general_unit.translate(offset.x, offset.y)
-                graph.combine_graph_edges_into_graph(general_unit)
-                general_unit.translate(-offset.x, -offset.y)
+                graph.combine_graph_edges_into_graph(
+                    Graph.translated(general_unit, offset.x, offset.y)
+                )
 
     # Add bottom units
     for x in range(reps_x):
@@ -112,9 +112,9 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                 round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
-            bottom_unit.translate(offset.x, offset.y)
-            graph.combine_graph_edges_into_graph(bottom_unit)
-            bottom_unit.translate(-offset.x, -offset.y)
+            graph.combine_graph_edges_into_graph(
+                Graph.translated(bottom_unit, offset.x, offset.y)
+            )
 
     # Add right and corner units
     for y in range(reps_y + 1):
@@ -143,9 +143,9 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
             else:
                 unit = corner_unit
 
-            unit.translate(offset.x, offset.y)
-            graph.combine_graph_edges_into_graph(unit)
-            unit.translate(-offset.x, -offset.y)
+            graph.combine_graph_edges_into_graph(
+                Graph.translated(unit, offset.x, offset.y)
+            )
 
     '''
     # Implement Delaunay

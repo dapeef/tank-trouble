@@ -238,6 +238,22 @@ class Graph():
 
         return graph
 
+    @classmethod
+    def translated(cls, graph, x, y):
+        """ Translates the graph by (x, y) """
+
+        temp_graph = Graph()
+
+        # pylint: disable=protected-access
+        for edge in graph._edges:
+            edge_raw = edge.raw()
+            temp_graph._add_edge_from_json(
+                [[edge_raw[0][0] + x, edge_raw[0][1] + y],
+                 [edge_raw[1][0] + x, edge_raw[1][1] + y]]
+            )
+
+        return temp_graph
+
 
 if __name__ == "__main__":
     g = Graph.create_graph_from_json_edges([[[0, 0], [0, 1]],
