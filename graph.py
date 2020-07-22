@@ -1,5 +1,7 @@
 """ Module containing the Graph class """
 
+import matplotlib.pyplot as plt
+
 
 class Graph():
     """ Object to manage the graph layout for the maze gen """
@@ -162,3 +164,32 @@ class Graph():
         """ Adds face to graph from an array of raw edges and returns the Face """
 
         return self._add_face([self._add_edge_from_json(edge) for edge in edges])
+    def show(self, show_edges=True, show_points=False, flip=False):
+        """ Applies plt settings and shows plt window """
+
+        if flip:
+            flip_sf = -1
+
+        else:
+            flip_sf = 1
+
+        if show_edges:
+            for edge in self._edges:
+                plt.plot(
+                    [edge.start.x, edge.end.x],
+                    [edge.start.y * flip_sf, edge.end.y * flip_sf]
+                )
+
+        if show_points:
+            for point in self._points:
+                plt.plot(
+                    point.x,
+                    point.y*flip_sf,
+                    "o"
+                )
+
+        plt.gca().set_aspect('equal', adjustable='box')
+        plt.gcf().set_size_inches(9, 9)
+        plt.subplots_adjust(left=0.04, right=.999, top=1, bottom=0.03)
+        plt.show()
+
