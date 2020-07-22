@@ -164,6 +164,15 @@ class Graph():
         """ Adds face to graph from an array of raw edges and returns the Face """
 
         return self._add_face([self._add_edge_from_json(edge) for edge in edges])
+
+    # Public functions
+    def translate(self, x, y):
+        """ Translates the graph by (x, y) """
+
+        for point in self._points:
+            point.x += x
+            point.y += y
+
     def show(self, show_edges=True, show_points=False, flip=False):
         """ Applies plt settings and shows plt window """
 
