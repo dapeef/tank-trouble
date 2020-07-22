@@ -136,3 +136,29 @@ class Graph():
 
         return self._add_edge(start, end)
 
+    def _add_face(self, edges: [Edge]):
+        """ Adds face to graph from and array of Edge objects """
+
+        if not edges in [face.edges for face in self._faces]:
+            face = self.Face(edges)
+
+            self._faces.append(face)
+
+            for edge in edges:
+                if len(edge.parents) == 1:
+                    face.adjacent_faces.append(edge.parents[0])
+
+                edge.parents.append(face)
+
+        else:
+            face = list(
+                filter(
+                    lambda a: a.edges == edges, self._faces
+                ))[0]
+
+        return face
+
+    def _add_face_from_json(self, edges: [[[float]]]):
+        """ Adds face to graph from an array of raw edges and returns the Face """
+
+        return self._add_face([self._add_edge_from_json(edge) for edge in edges])
