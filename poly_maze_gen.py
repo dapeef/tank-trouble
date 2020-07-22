@@ -215,6 +215,8 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
     return graph
 
+
+# Utilities
 def transpose_edge(edge, vector):
     """ A function to transpose an edge by a given x and y value """
 
