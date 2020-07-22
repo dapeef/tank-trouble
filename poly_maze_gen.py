@@ -217,26 +217,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
 
 # Utilities
-def transpose_edge(edge, vector):
-    """ A function to transpose an edge by a given x and y value """
-
-    new_vec_edge = [
-        vmath.Vector2(edge[0]) + vector,
-        vmath.Vector2(edge[1]) + vector
-    ]
-
-    return [[new_vec_edge[0].x, new_vec_edge[0].y], [new_vec_edge[1].x, new_vec_edge[1].y]]
-
-
-def round_edge(edge, dec_points=0):
-    """ Rounds all points in an edge to a given number of decimal points """
-
-    return [
-        [round(edge[0][0], dec_points), round(edge[0][1], dec_points)],
-        [round(edge[1][0], dec_points), round(edge[1][1], dec_points)]
-    ]
-
-
 def offset_calc(ref_x, ref_y, x_scale, y_scale, shift_vec):
     """ Calculates the offset for the new unit """
 
@@ -264,29 +244,6 @@ def find_adjacent_tris(tri, tri_group, tris, np_points, edges):
                 find_adjacent_tris(i, tri_group, tris, np_points, edges)
 
     return tri_group
-
-
-def sort_edge(edge):
-    """ Function to sort an edge so all edges are consistent and comparable """
-
-    return sorted(
-        sorted(
-            edge,
-            key=lambda point: point[0]),
-        key=lambda point: point[1]
-    )
-
-
-def find_edge(raw_edge, edges):
-    """ Function to return the corresponding edge when given a tuple of points """
-
-    real_edge = None
-
-    for edge in edges:
-        if raw_edge == edge.raw():
-            real_edge = edge
-
-    return real_edge
 
 
 # Debugging fuctions
