@@ -6,10 +6,11 @@ import matplotlib.pyplot as plt
 class Graph():
     """ Object to manage the graph layout for the maze gen """
 
-    def __init__(self):
+    def __init__(self, bounding_box=[0, 0]):
         self._points = []
         self._edges = []
         self._faces = []
+        self.bounding_box = bounding_box
 
     # Classes
     class Point():
@@ -208,6 +209,13 @@ class Graph():
                     point.y*flip_sf,
                     "o"
                 )
+
+        if self.bounding_box != [0, 0]:
+            plt.plot(
+                [0, self.bounding_box[0], self.bounding_box[0], 0, 0],
+                [0, 0, self.bounding_box[1], self.bounding_box[1], 0],
+                "k:"
+            )
 
         plt.gca().set_aspect('equal', adjustable='box')
         plt.gcf().set_size_inches(9, 9)

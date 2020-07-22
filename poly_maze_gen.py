@@ -37,7 +37,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     """
 
     # Create base Graph
-    graph = Graph()
+    graph = Graph([width, height])
 
     # Make variables more handy
     pattern = patterns[pattern_id]
