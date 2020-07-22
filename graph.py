@@ -6,11 +6,10 @@ import matplotlib.pyplot as plt
 class Graph():
     """ Object to manage the graph layout for the maze gen """
 
-    def __init__(self, bounding_box=[0, 0]):
+    def __init__(self):
         self._points = []
         self._edges = []
         self._faces = []
-        self.bounding_box = bounding_box
 
     # Classes
     class Point():
@@ -186,7 +185,7 @@ class Graph():
             point.x += x
             point.y += y
 
-    def show(self, show_edges=True, show_points=False, flip=False):
+    def show(self, show_edges=True, show_points=False, flip=False, bounding_box=[0, 0]):
         """ Applies plt settings and shows plt window """
 
         if flip:
@@ -210,10 +209,10 @@ class Graph():
                     "o"
                 )
 
-        if self.bounding_box != [0, 0]:
+        if bounding_box != [0, 0]:
             plt.plot(
-                [0, self.bounding_box[0], self.bounding_box[0], 0, 0],
-                [0, 0, self.bounding_box[1], self.bounding_box[1], 0],
+                [0, bounding_box[0], bounding_box[0], 0, 0],
+                [0, 0, bounding_box[1], bounding_box[1], 0],
                 "k:"
             )
 

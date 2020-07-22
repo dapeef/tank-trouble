@@ -37,7 +37,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     """
 
     # Create base Graph
-    graph = Graph([width, height])
+    graph = Graph()
 
     # Make variables more handy
     pattern = patterns[pattern_id]
@@ -306,4 +306,4 @@ if __name__ == "__main__":
     generate_maze(
         w, h,
         pattern_id=DODECAGON,
-        density=0.9).show()
+        density=0.9).show(bounding_box=[w, h])
