@@ -3,10 +3,7 @@
 import json
 import math
 import time
-import numpy as np
 import vectormath as vmath
-import matplotlib.pyplot as plt
-from scipy.spatial import Delaunay
 from graph import Graph
 
 # Maze id constants
