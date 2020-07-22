@@ -275,43 +275,25 @@ def sort_edge(edge):
     )
 
 
+def find_edge(raw_edge, edges):
+    """ Function to return the corresponding edge when given a tuple of points """
+
+    real_edge = None
+
+    for edge in edges:
+        if raw_edge == edge.raw():
+            real_edge = edge
+
+    return real_edge
+
+
+# Debugging fuctions
 def num_patterns():
     """
     Return the number of patterns available (with the intention of being able to automate the
     pattern choosing)
     """
     return len(patterns)
-
-
-def draw_edges(edges, bounding_box=(0, 0), flip=True):
-    """ A function which displays the edges in an array using matplotlib """
-
-    if flip:
-        flip_sf = -1
-
-    else:
-        flip_sf = 1
-
-    for edge in edges:
-        plt.plot(
-            [edge[0][0], edge[1][0]],
-            [edge[0][1]*flip_sf, edge[1][1]*flip_sf]
-        )
-
-    if bounding_box != (0, 0):
-        plt.plot(
-            [0, 0, bounding_box[0], bounding_box[0], 0],
-            [0, -bounding_box[1], -bounding_box[1], 0, 0],
-            "k:",
-            linewidth=1
-        )
-
-
-def show_drawing():
-    """ Applies plt settings and shows plt window """
-
-    plt.gca().set_aspect('equal', adjustable='box')
-    plt.show()
 
 
 if __name__ == "__main__":
