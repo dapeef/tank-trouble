@@ -87,16 +87,9 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                     round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
-                for edge in pattern["unit"]["edges"]:
-                    raw_edges.append(
-                        round_edge(
-                            transpose_edge(
-                                edge,
-                                offset
-                            ),
-                            2
-                        )
-                    )
+                general_unit.translate(offset.x, offset.y)
+                graph.combine_graph_into_graph(general_unit)
+                general_unit.translate(-offset.x, -offset.y)
 
     # Add bottom units
     for x in range(reps_x):
@@ -119,8 +112,9 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                 round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
-            for edge in pattern["bottom_unit"]["edges"]:
-                raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
+            bottom_unit.translate(offset.x, offset.y)
+            graph.combine_graph_into_graph(bottom_unit)
+            bottom_unit.translate(-offset.x, -offset.y)
 
     # Add right and corner units
     for y in range(reps_y + 1):
@@ -144,20 +138,14 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                 round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
             if y != reps_y:
-                unit_edges = pattern["right_unit"]["edges"]
+                unit = right_unit
 
             else:
-                unit_edges = pattern["corner_unit"]["edges"]
+                unit = corner_unit
 
-            for edge in unit_edges:
-                raw_edges.append(round_edge(transpose_edge(edge, offset), 2))
-
-    # Remove duplicates
-    edges = []
-
-    for i in raw_edges:
-        if not i in edges:
-            edges.append(i)
+            unit.translate(offset.x, offset.y)
+            graph.combine_graph_into_graph(unit)
+            unit.translate(-offset.x, -offset.y)
 
     # Implement Delaunay
     points = []
