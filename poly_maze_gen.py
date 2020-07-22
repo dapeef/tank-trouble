@@ -7,6 +7,7 @@ import numpy as np
 import vectormath as vmath
 import matplotlib.pyplot as plt
 from scipy.spatial import Delaunay
+from graph import Graph
 
 # Maze id constants
 TRIANGLE = 0
@@ -30,7 +31,13 @@ patterns = json.loads(open("patterns.json").read())
 
 # pylint: disable=too-many-locals, too-many-branches, too-many-statements
 def generate_maze(width, height, pattern_id=0, density=0.9):
-    """ Generate a maze of given width and height in the pattern outlined in patterns.json """
+    """
+    Generate a Graph object of a maze of given width and height in the pattern outlined in
+    patterns.json
+    """
+
+    # Create base Graph
+    graph = Graph()
 
     # Make variables more handy
     pattern = patterns[pattern_id]
