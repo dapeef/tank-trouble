@@ -170,6 +170,25 @@ class Graph():
 
         return self._add_face([self._add_edge_from_json(edge) for edge in edges])
 
+    def _find_adjacent_tris(self, tri, tri_group, tris, np_points, edges):
+        """ Recursive function to find all tris that make up a face """
+
+        tri_points = [list(i) for i in np_points[tris.simplices][tri]]
+
+        for i in tris.neighbors[tri]:
+            if not i in tri_group and i != -1:
+                i_points = [list(i) for i in np_points[tris.simplices][i]]
+
+                edge = sort_edge(
+                    list(filter(lambda point: point in tri_points, i_points))
+                )
+
+                if not edge in edges:
+                    tri_group.append(i)
+                    find_adjacent_tris(i, tri_group, tris, np_points, edges)
+
+        return tri_group
+
     # Public functions
     def combine_graph_edges_into_graph(self, graph):
         """ Combines existing Graph's edges with another Graph """
