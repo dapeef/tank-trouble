@@ -193,3 +193,23 @@ class Graph():
         plt.subplots_adjust(left=0.04, right=.999, top=1, bottom=0.03)
         plt.show()
 
+    @classmethod
+    def create_graph_from_json_edges(cls, json):
+        """
+        Function which returns a new Graph object when given json of edges in the form:
+
+        [
+            [[x1, y1], [x2, y2]],
+            [[x3, y3], [x4, y4]],
+            ...
+        ]
+
+        """
+
+        graph = Graph()
+
+        for edge in json:
+            graph._add_edge_from_json(edge)  # pylint: disable=protected-access
+
+        return graph
+
