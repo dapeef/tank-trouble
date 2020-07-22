@@ -169,7 +169,7 @@ class Graph():
         return self._add_face([self._add_edge_from_json(edge) for edge in edges])
 
     # Public functions
-    def combine_graph_into_graph(self, graph):
+    def combine_graph_edges_into_graph(self, graph):
         """ Combines existing Graph's edges with another Graph """
 
         for face in graph._faces:  # pylint: disable=protected-access
@@ -268,13 +268,13 @@ if __name__ == "__main__":
                                              [[2, 1], [2, 0]],
                                              [[2, 0], [3, 2]]])
 
-    g.combine_graph_into_graph(g1)
+    g.combine_graph_edges_into_graph(g1)
     g1.translate(1, 0)
-    g.combine_graph_into_graph(g1)
+    g.combine_graph_edges_into_graph(g1)
     g1.translate(1, 0)
-    g.combine_graph_into_graph(g1)
-    g.combine_graph_into_graph(g2)
-    g.combine_graph_into_graph(g3)
+    g.combine_graph_edges_into_graph(g1)
+    g.combine_graph_edges_into_graph(g2)
+    g.combine_graph_edges_into_graph(g3)
 
     # pylint: disable=protected-access
     print(len(g._points), len(g._edges), len(g._faces))
