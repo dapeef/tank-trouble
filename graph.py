@@ -234,3 +234,38 @@ class Graph():
 
         return graph
 
+
+if __name__ == "__main__":
+    g = Graph.create_graph_from_json_edges([[[0, 0], [0, 1]],
+                                            [[0, 1], [1, 1]],
+                                            [[1, 1], [1, 0]],
+                                            [[1, 0], [0, 0]]])
+
+    g1 = Graph.create_graph_from_json_edges([[[0, 0.1], [0, 1]],
+                                             [[0, 1], [1, 1.1]],
+                                             [[1, 1.1], [1, 0]],
+                                             [[1, 0], [0, 0.1]]])
+
+    g1.translate(0, 2)
+
+    g2 = Graph.create_graph_from_json_edges([[[1, 0], [1, 1]],
+                                             [[1, 1], [2, 1]],
+                                             [[2, 1], [2, 0]],
+                                             [[2, 0], [1, 0]]])
+
+    g3 = Graph.create_graph_from_json_edges([[[3, 2], [1, 1]],
+                                             [[1, 1], [2, 1]],
+                                             [[2, 1], [2, 0]],
+                                             [[2, 0], [3, 2]]])
+
+    g.combine_graph_into_graph(g1)
+    g1.translate(1, 0)
+    g.combine_graph_into_graph(g1)
+    g1.translate(1, 0)
+    g.combine_graph_into_graph(g1)
+    g.combine_graph_into_graph(g2)
+    g.combine_graph_into_graph(g3)
+
+    # pylint: disable=protected-access
+    print(len(g._points), len(g._edges), len(g._faces))
+    g.show(show_points=True)
