@@ -179,13 +179,15 @@ class Graph():
             if not i in tri_group and i != -1:
                 i_points = [list(i) for i in np_points[tris.simplices][i]]
 
-                edge = sort_edge(
+                edge = self.Edge.sort_edge(
                     list(filter(lambda point: point in tri_points, i_points))
                 )
 
                 if not edge in edges:
                     tri_group.append(i)
-                    find_adjacent_tris(i, tri_group, tris, np_points, edges)
+
+                    self._find_adjacent_tris(
+                        i, tri_group, tris, np_points, edges)
 
         return tri_group
 
@@ -215,6 +217,8 @@ class Graph():
 
         tri_ids = list(range(len(tris.simplices)))
 
+        raw_edges = self.Edge.raw_array(self._edges)
+
         faces_edges = []
 
         while len(tri_ids) > 0:
@@ -223,7 +227,7 @@ class Graph():
                 [tri_ids[0]],
                 tris,
                 np_points,
-                edges
+                raw_edges
             )
 
             face_edges = [
@@ -247,7 +251,7 @@ class Graph():
             valid = True
 
             for edge in exterior_face_edges:
-                if not edge in edges:
+                if not edge in raw_edges:
                     valid = False
 
             if valid:
@@ -256,12 +260,11 @@ class Graph():
             tri_ids = list(filter(lambda x: x not in tri_group, tri_ids))
 
         # Create faces
-        print(faces_edges)
+        for face in faces_edges:
+            self._add_face_from_json(face)
 
-        faces = []
-
-        for i, face_edge in enumerate(faces_edges):
-            faces.append(Face(i, face_edge))
+        for face in self._faces:
+            print(len(face.children), face, face.adjacent_faces)
 
     def show(self, show_edges=True, show_points=False, flip=False, bounding_box=[0, 0]):
         """ Applies plt settings and shows plt window """
