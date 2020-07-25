@@ -154,8 +154,10 @@ class Graph():
             for edge in edges:
                 if len(edge.parents) == 1:
                     face.adjacent_faces.append(edge.parents[0])
+                    edge.parents[0].adjacent_faces.append(face)
 
                 edge.parents.append(face)
+                face.children.append(edge)
 
         else:
             face = list(
