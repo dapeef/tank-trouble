@@ -96,19 +96,17 @@ class Graph():
     def _add_point(self, x: float, y: float):
         """ Adds point to graph and returns point (even if already exists) """
 
-        x = round(x, 2)
-        y = round(y, 2)
+        exists = False
 
-        if not [x, y] in self.Point.raw_array(self._points):
+        for i in self._points:
+            if self._are_points_near(x, y, i.x, i.y):
+                exists = True
+                point = i
+
+        if not exists:
             point = self.Point(x, y)
 
             self._points.append(point)
-
-        else:
-            point = list(
-                filter(
-                    lambda a: a.raw() == [x, y], self._points
-                ))[0]
 
         return point
 
