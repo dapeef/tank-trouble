@@ -277,10 +277,11 @@ class Graph():
 
         if show_edges:
             for edge in self._edges:
-                plt.plot(
-                    [edge.start.x, edge.end.x],
-                    [edge.start.y * flip_sf, edge.end.y * flip_sf]
-                )
+                if edge.enabled:
+                    plt.plot(
+                        [edge.start.x, edge.end.x],
+                        [edge.start.y * flip_sf, edge.end.y * flip_sf]
+                    )
 
         if show_points:
             for point in self._points:
