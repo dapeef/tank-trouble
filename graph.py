@@ -265,8 +265,6 @@ class Graph():
         for face in faces_edges:
             self._add_face_from_json(face)
 
-        for face in self._faces:
-            print(len(face.children), face, face.adjacent_faces)
 
     def show(self, show_edges=True, show_points=False, flip=False, bounding_box=[0, 0]):
         """ Applies plt settings and shows plt window """
