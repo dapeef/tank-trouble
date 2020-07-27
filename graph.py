@@ -201,6 +201,9 @@ class Graph():
 
         return math.sqrt(dx * dx + dy * dy) < NEAR_THRESHOLD
 
+    def _get_internal_edges(self):
+        return [edge for edge in self._edges if len(edge.parents) == 2]
+
     def _find_adjacent_tris(self, tri, tri_group, tris, np_points, edges):
         """ Recursive function to find all tris that make up a face """
 
@@ -297,7 +300,7 @@ class Graph():
     def make_maze(self):
         """ Disables edges until all faces are connected into one contiguous group """
 
-        edges = [edge for edge in self._edges if len(edge.parents) == 2]
+        edges = self._get_internal_edges()
 
         random.shuffle(edges)
 
