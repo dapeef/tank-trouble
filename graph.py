@@ -80,6 +80,7 @@ class Graph():
             self.edges = edges
             self.adjacent_faces = []
             self.children = []
+            self.id = 0
 
         def raw(self):
             """ Returns an array of edges is raw format """
