@@ -6,6 +6,7 @@ import numpy as np
 from scipy.spatial import Delaunay
 
 
+NEAR_THRESHOLD = 0.1
 class Graph():
     """ Object to manage the graph layout for the maze gen """
 
@@ -173,6 +174,14 @@ class Graph():
         """ Adds face to graph from an array of raw edges and returns the Face """
 
         return self._add_face([self._add_edge_from_json(edge) for edge in edges])
+
+    def _are_points_near(self, x1, y1, x2, y2):  # pylint: disable=invalid-name
+        """ Returns boolean whether 2 points are near each other """
+
+        dx = x2 - x1  # pylint: disable=invalid-name
+        dy = y2 - y1  # pylint: disable=invalid-name
+
+        return math.sqrt(dx * dx + dy * dy) < NEAR_THRESHOLD
 
     def _find_adjacent_tris(self, tri, tri_group, tris, np_points, edges):
         """ Recursive function to find all tris that make up a face """
