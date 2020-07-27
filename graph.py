@@ -9,7 +9,7 @@ from scipy.spatial import Delaunay
 
 
 # Constants
-NEAR_THRESHOLD = 0.1
+NEAR_THRESHOLD = 0.5
 
 
 # Classes
