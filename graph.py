@@ -324,6 +324,25 @@ class Graph():
 
         print([face.id for face in self._faces])
 
+    def apply_density(self, density):
+        """ Removes further walls to improve the map """
+
+        enabled_edges = self._get_enabled_edges()
+
+        random.shuffle(enabled_edges)
+
+        removed_edges = 0
+
+        for edge in enabled_edges:
+            if edge.start.num_enabled_parents() > 1 and \
+                    edge.end.num_enabled_parents() > 1:
+                edge.enabled = False
+
+                removed_edges += 1
+
+            if removed_edges / len(enabled_edges) > 1 - density:
+                break
+
     def show(self, show_edges=True, show_points=False, flip=False, bounding_box=(0, 0)):
         """ Applies plt settings and shows plt window """
 
