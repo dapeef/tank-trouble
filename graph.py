@@ -1,5 +1,6 @@
 """ Module containing the Graph class """
 
+# Imports
 import random
 import math
 import matplotlib.pyplot as plt
@@ -7,7 +8,11 @@ import numpy as np
 from scipy.spatial import Delaunay
 
 
+# Constants
 NEAR_THRESHOLD = 0.1
+
+
+# Classes
 class Graph():
     """ Object to manage the graph layout for the maze gen """
 
