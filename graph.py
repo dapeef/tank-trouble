@@ -311,8 +311,6 @@ class Graph():
             face.id = i
 
         for edge in edges:
-            print(edge.parents[0].id, edge.parents[1].id,
-                  [face.id for face in self._faces])
             if edge.parents[0].id != edge.parents[1].id:
                 edge.enabled = False
 
@@ -321,8 +319,6 @@ class Graph():
                 for face in self._faces:
                     if face.id == dead_id:
                         face.id = edge.parents[0].id
-
-        print([face.id for face in self._faces])
 
     def apply_density(self, density):
         """ Removes further walls to improve the map """
