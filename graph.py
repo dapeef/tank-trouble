@@ -38,7 +38,7 @@ class Graph():
             """ Adds an edge as a parent of the point """
             self.parents.append(edge)
 
-        def enabled_parents(self):
+        def num_enabled_parents(self):
             """ Returns the number of enabled edges connected to the point """
 
             num = 0
