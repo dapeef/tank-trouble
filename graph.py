@@ -38,6 +38,17 @@ class Graph():
             """ Adds an edge as a parent of the point """
             self.parents.append(edge)
 
+        def enabled_parents(self):
+            """ Returns the number of enabled edges connected to the point """
+
+            num = 0
+
+            for edge in self.parents:
+                if edge.enabled:
+                    num += 1
+
+            return num
+
         @ classmethod
         def raw_array(cls, points):
             """ Returns an array of raw points when given an array of Point objects """
