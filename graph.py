@@ -113,6 +113,9 @@ class Graph():
     def _add_point(self, x: float, y: float):
         """ Adds point to graph and returns point (even if already exists) """
 
+        x = round(x, 3)
+        y = round(y, 3)
+
         exists = False
 
         for i in self._points:
