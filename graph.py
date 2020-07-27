@@ -1,6 +1,7 @@
 """ Module containing the Graph class """
 
 import random
+import math
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.spatial import Delaunay
