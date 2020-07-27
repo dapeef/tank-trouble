@@ -201,6 +201,9 @@ class Graph():
 
         return math.sqrt(dx * dx + dy * dy) < NEAR_THRESHOLD
 
+    def _get_enabled_edges(self):
+        return list(filter(lambda edge: edge.enabled, self._get_internal_edges()))
+
     def _get_internal_edges(self):
         return [edge for edge in self._edges if len(edge.parents) == 2]
 
