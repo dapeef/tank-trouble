@@ -266,6 +266,29 @@ class Graph():
         for face in faces_edges:
             self._add_face_from_json(face)
 
+    def make_maze(self):
+        """ Disables edges until all faces are connected into one contiguous group """
+
+        edges = [edge for edge in self._edges if len(edge.parents) == 2]
+
+        random.shuffle(edges)
+
+        for i, face in enumerate(self._faces):
+            face.id = i
+
+        for edge in edges:
+            print(edge.parents[0].id, edge.parents[1].id,
+                  [face.id for face in self._faces])
+            if edge.parents[0].id != edge.parents[1].id:
+                edge.enabled = False
+
+                dead_id = edge.parents[1].id
+
+                for face in self._faces:
+                    if face.id == dead_id:
+                        face.id = edge.parents[0].id
+
+        print([face.id for face in self._faces])
 
     def show(self, show_edges=True, show_points=False, flip=False, bounding_box=[0, 0]):
         """ Applies plt settings and shows plt window """

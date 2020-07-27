@@ -146,6 +146,8 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
     graph.detect_faces()
 
+    graph.make_maze()
+
     print("finished in", round(time.time() - start_time, 3), "seconds")
 
     return graph
