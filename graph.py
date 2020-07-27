@@ -324,7 +324,7 @@ class Graph():
 
         print([face.id for face in self._faces])
 
-    def show(self, show_edges=True, show_points=False, flip=False, bounding_box=[0, 0]):
+    def show(self, show_edges=True, show_points=False, flip=False, bounding_box=(0, 0)):
         """ Applies plt settings and shows plt window """
 
         if flip:
