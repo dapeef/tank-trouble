@@ -91,7 +91,6 @@ class Graph():
             self.start = start
             self.end = end
             self.enabled = True
-            self.children = []
             self.parents = []
 
         def delete(self, graph):
@@ -110,10 +109,6 @@ class Graph():
         def raw(self):
             """ Returns an edge in tuple format """
             return [[self.start.x, self.start.y], [self.end.x, self.end.y]]
-
-        def add_child(self, point):
-            """ Adds a point as a child of the edge """
-            self.children.append(point)
 
         def add_parent(self, face):
             """ Adds a face as a parent of the edge """
