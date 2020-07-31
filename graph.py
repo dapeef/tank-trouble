@@ -31,6 +31,16 @@ class Graph():
             self.y = y
             self.parents = []
 
+        def delete(self, graph):
+            """ Function to delete point, clearing up all parents edges """
+
+            for edge in self.parents:
+                edge.delete(graph)
+
+            # pylint: disable = protected-access
+            graph._points = list(filter(
+                lambda point: point != self, graph._points))
+
         def raw(self):
             """ Returns a point in tuple format """
             return [self.x, self.y]
@@ -83,6 +93,19 @@ class Graph():
             self.enabled = True
             self.children = []
             self.parents = []
+
+        def delete(self, graph):
+            """ Function to delete edge, tidied up edgeless points also """
+
+            # pylint: disable = protected-access
+            graph._edges = list(filter(
+                lambda edge: edge != self, graph._edges))
+
+            if len(self.start.parents) == 1:
+                self.start.delete(graph)
+
+            if len(self.end.parents) == 1:
+                self.end.delete(graph)
 
         def raw(self):
             """ Returns an edge in tuple format """
