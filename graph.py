@@ -5,6 +5,7 @@ import random
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+import vectormath as vmath
 from scipy.spatial import Delaunay  # pylint: disable=no-name-in-module
 
 
@@ -37,6 +38,25 @@ class Graph():
         def add_parent(self, edge):
             """ Adds an edge as a parent of the point """
             self.parents.append(edge)
+
+        def angle(self):
+            """ Returns the angle between the 2 edges for a point with 2 parents """
+
+            if len(self.parents) == 2:
+                if self.parents[0].start == self:
+                    point0 = self.parents[0].end
+                else:
+                    point0 = self.parents[0].start
+
+                if self.parents[1].start == self:
+                    point1 = self.parents[1].end
+                else:
+                    point1 = self.parents[1].start
+
+                vec0 = vmath.Vector2(point0.x - self.x, point0.y - self.y)
+                vec1 = vmath.Vector2(point1.x - self.x, point1.y - self.y)
+
+                return round(math.acos(vec0.dot(vec1)) / math.pi * 180, 2)
 
         def num_enabled_parents(self):
             """ Returns the number of enabled edges connected to the point """
