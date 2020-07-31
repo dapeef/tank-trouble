@@ -280,6 +280,15 @@ class Graph():
             point.x += x
             point.y += y
 
+    def tidy_edges(self):
+        """ A function to tidy up all unnecessary triangles poking out of the edges of the map """
+
+        for point in self._points:
+            if len(point.parents) == 2:
+                if point.angle() < 80:
+                    print("poo")
+                    point.delete(self)
+
     def detect_faces(self):
         """ Used Delaunay to detect faces and adds them to the graph """
 

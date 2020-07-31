@@ -144,6 +144,8 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
                 Graph.translated(unit, offset.x, offset.y)
             )
 
+    graph.tidy_edges()
+
     graph.detect_faces()
 
     graph.make_maze()
