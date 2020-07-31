@@ -137,7 +137,7 @@ class Graph():
             self.edges = edges
             self.adjacent_faces = []
             self.children = []
-            self.id = 0
+            self.id = 0  # pylint: disable = invalid-name
 
         def raw(self):
             """ Returns an array of edges is raw format """
