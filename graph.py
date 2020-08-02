@@ -194,10 +194,9 @@ class Graph():
             end.parents.append(edge)
 
         else:
-            edge = list(
-                filter(
-                    lambda a: [a.start, a.end] == [start, end], self._edges
-                ))[0]
+            for i in self._edges:
+                if [i.start, i.end] == [start, end]:
+                    edge = i
 
         return edge
 
