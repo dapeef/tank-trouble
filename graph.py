@@ -84,6 +84,15 @@ class Graph():
             """ Returns an array of raw points when given an array of Point objects """
             return [i.raw() for i in points]
 
+        @classmethod
+        def are_points_near(cls, x1, y1, x2, y2):  # pylint: disable=invalid-name
+            """ Returns boolean whether 2 points are near each other """
+
+            dx = x2 - x1  # pylint: disable=invalid-name
+            dy = y2 - y1  # pylint: disable=invalid-name
+
+            return math.sqrt(dx * dx + dy * dy) < NEAR_THRESHOLD
+
     class Edge():
         """ Edge class """
 
@@ -157,7 +166,7 @@ class Graph():
         exists = False
 
         for i in self._points:
-            if self._are_points_near(x, y, i.x, i.y):
+            if self.Point.are_points_near(x, y, i.x, i.y):
                 exists = True
                 point = i
 
@@ -230,14 +239,6 @@ class Graph():
         """ Adds face to graph from an array of raw edges and returns the Face """
 
         return self._add_face([self._add_edge_from_json(edge) for edge in edges])
-
-    def _are_points_near(self, x1, y1, x2, y2):  # pylint: disable=invalid-name
-        """ Returns boolean whether 2 points are near each other """
-
-        dx = x2 - x1  # pylint: disable=invalid-name
-        dy = y2 - y1  # pylint: disable=invalid-name
-
-        return math.sqrt(dx * dx + dy * dy) < NEAR_THRESHOLD
 
     def _get_enabled_edges(self):
         return list(filter(lambda edge: edge.enabled, self._get_internal_edges()))
