@@ -179,11 +179,26 @@ def num_patterns():
 if __name__ == "__main__":
     print("num patterns =", num_patterns(), "\n")
     start_time = time.time()
+    start = time.time()
     print("start")
 
     w, h = 20, 20
 
-    generate_maze(
-        w, h,
-        pattern_id=SQUARE,
-        density=0.9)  # .show(flip=True, bounding_box=[w, h])
+    PROFILING = True
+
+    if not PROFILING:
+        generate_maze(
+            w, h,
+            pattern_id=SQUARE,
+            density=0.9).show(flip=True, bounding_box=[w, h])
+
+    else:
+        for i in range(num_patterns()):
+            start_time = time.time()
+            print(i, "/", num_patterns() - 1, end=" ", sep="")
+            generate_maze(
+                w, h,
+                pattern_id=i,
+                density=0.9)
+
+        print("Total time:", round(time.time() - start, 3), "seconds", sep=" ")
