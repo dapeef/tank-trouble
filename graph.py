@@ -79,7 +79,7 @@ class Graph():
 
             return num
 
-        @ classmethod
+        @classmethod
         def raw_array(cls, points):
             """ Returns an array of raw points when given an array of Point objects """
             return [i.raw() for i in points]
@@ -123,7 +123,7 @@ class Graph():
             """ Adds a face as a parent of the edge """
             self.parents.append(face)
 
-        @ classmethod
+        @classmethod
         def raw_array(cls, edges):
             """ Returns an array of raw edges when given an array of Edge objects """
             return [i.raw() for i in edges]
