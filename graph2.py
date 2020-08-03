@@ -2,6 +2,7 @@
 
 # Imports
 import vectormath as vmath
+import json
 
 
 # Classes
@@ -22,11 +23,11 @@ class SkeletonGraph():
 
     # Classmethods
     @classmethod
-    def _serialise_from_json(cls, json: str):
+    def _serialise_from_json(cls, raw_json: str):
         """ Returns a SkeletonGraph from a json of _points and _edges (for the testing suite) """
 
     @classmethod
-    def construct_from_json(cls, json: str):
+    def construct_from_json(cls, raw_json: str):
         """
         Returns a SkeletonGraph of edges and points from a json in the form of
         [
