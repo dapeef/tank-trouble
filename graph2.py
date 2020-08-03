@@ -1,8 +1,8 @@
 """ Module containing the SkeletonGraph and Graph class """
 
 # Imports
-import vectormath as vmath
 import json
+import vectormath as vmath
 
 
 # Classes
