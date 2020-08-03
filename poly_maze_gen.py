@@ -4,7 +4,7 @@ import json
 import math
 import time
 import vectormath as vmath
-from graph import Graph
+from graph2 import SkeletonGraph, Graph
 
 # Maze id constants
 TRIANGLE = 0
@@ -33,9 +33,6 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
     patterns.json
     """
 
-    # Create base Graph
-    graph = Graph()
-
     # Make variables more handy
     pattern = patterns[pattern_id]
 
@@ -54,17 +51,24 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
                              pattern["unit"]["min_y"]) / ref_y[1]), 0)
 
     # Create graphs for units
-    general_unit = Graph.create_graph_from_json_edges(
+    general_unit = SkeletonGraph.construct_from_edges(
         pattern["unit"]["edges"])
 
-    bottom_unit = Graph.create_graph_from_json_edges(
+    bottom_unit = SkeletonGraph.construct_from_edges(
         pattern["bottom_unit"]["edges"])
 
-    right_unit = Graph.create_graph_from_json_edges(
+    right_unit = SkeletonGraph.construct_from_edges(
         pattern["right_unit"]["edges"])
 
-    corner_unit = Graph.create_graph_from_json_edges(
+    corner_unit = SkeletonGraph.construct_from_edges(
         pattern["corner_unit"]["edges"])
+
+    positions = [
+        [general_unit, []],
+        [bottom_unit, []],
+        [right_unit, []],
+        [corner_unit, []]
+    ]
 
     # Add all general units
     for x in range(reps_x):
@@ -84,9 +88,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                     round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
-                graph.combine_graph_edges_into_graph(
-                    Graph.translated(general_unit, offset.x, offset.y)
-                )
+                positions[0][1].append(offset.y)
 
     # Add bottom units
     for x in range(reps_x):
@@ -109,9 +111,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
         if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                 round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
-            graph.combine_graph_edges_into_graph(
-                Graph.translated(bottom_unit, offset.x, offset.y)
-            )
+            positions[1][1].append(offset)
 
     # Add right and corner units
     for y in range(reps_y + 1):
@@ -135,26 +135,23 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
         if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                 round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
             if y != reps_y:
-                unit = right_unit
+                unit = 2
 
             else:
-                unit = corner_unit
+                unit = 3
 
-            graph.combine_graph_edges_into_graph(
-                Graph.translated(unit, offset.x, offset.y)
-            )
+            positions[unit][1].append(offset)
 
-    graph.tidy_edges()
+    # skeleton_graph = SkeletonGraph.construct_from_translated_skeletongraphs(
+    #    positions)
 
-    graph.detect_faces()
+    #graph = Graph.construct_from_skeletongraph(skeleton_graph)
 
-    graph.make_maze()
-
-    graph.apply_density(density)
+    # graph.make_maze(density)
 
     print("finished in", round(time.time() - start_time, 3), "seconds")
 
-    return graph
+    # return graph
 
 
 # Utilities
@@ -184,13 +181,13 @@ if __name__ == "__main__":
 
     w, h = 20, 20
 
-    PROFILING = True
+    PROFILING = False
 
     if not PROFILING:
         generate_maze(
             w, h,
             pattern_id=SQUARE,
-            density=0.9).show(flip=True, bounding_box=[w, h])
+            density=0.9)  # .show(flip=True, bounding_box=[w, h])
 
     else:
         for i in range(num_patterns()):
