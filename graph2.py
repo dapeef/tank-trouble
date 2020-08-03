@@ -30,7 +30,7 @@ class SkeletonGraph():
         """ Returns a SkeletonGraph from a json of _points and _edges (for the testing suite) """
 
     @classmethod
-    def construct_from_json(cls, raw_json: str):
+    def construct_from_edges(cls, edges: str):
         """
         Returns a SkeletonGraph of edges and points from a json in the form of
         [
@@ -39,6 +39,21 @@ class SkeletonGraph():
             ...
         ]
         """
+
+        #  pylint: disable=protected-access
+        skeleton_graph = cls()
+
+        for edge in edges:
+            skeleton_graph._points.append(edge[0])
+            skeleton_graph._points.append(edge[1])
+
+            len_points = len(skeleton_graph._points)
+
+            skeleton_graph._edges.append([len_points - 2, len_points - 1])
+
+        skeleton_graph._deduplicate()
+
+        return skeleton_graph
 
     @classmethod
     def construct_from_translated_skeletongraphs(cls, translations):
