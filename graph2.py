@@ -17,6 +17,9 @@ class SkeletonGraph():
     def _serialise_to_json(self):
         """ Returns a json of _points and _edges (for the testing suite) """
 
+    def _deduplicate(self):
+        """ Removes duplicate points and edges """
+
     # Public functions
     def show(self, show_edges=True, show_points=False, flip=False, bounding_box=(0, 0)):
         """ Draws edges and or points , applies plt settings and shows plt window """
