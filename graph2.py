@@ -7,7 +7,7 @@ import vectormath as vmath
 
 
 # Constants
-NEAR_THRESHOLD = 0.7
+NEAR_THRESHOLD = .7
 
 
 # Classes
@@ -33,10 +33,7 @@ class SkeletonGraph():
             unique = True
 
             for new_point in new_points:
-                dx = point[0] - new_point[0]
-                dy = point[1] - new_point[1]
-
-                if dx * dx + dy * dy < NEAR_THRESHOLD * NEAR_THRESHOLD:
+                if self._are_points_near(point, new_point):
                     unique = False
 
                     break
@@ -54,6 +51,13 @@ class SkeletonGraph():
             new_edges.append(tuple(sorted([points_lookup[i] for i in edge])))
 
         self._edges = list(set(new_edges))
+
+    def _are_points_near(self, point1, point2):
+        #  pylint: disable=invalid-name
+        dx = point1.x - point2.x
+        dy = point1.y - point2.y
+
+        return dx * dx + dy * dy < NEAR_THRESHOLD * NEAR_THRESHOLD
 
     # Public functions
     def show(self, show_edges=True, show_points=False, flip=False, bounding_box=(0, 0)):
