@@ -41,7 +41,10 @@ class SkeletonGraph():
             if unique:
                 new_points.append(point)
 
-            points_lookup.append(new_points.index(point))
+            # Indexing equivalent aka: points_lookup.append(new_points.index(point))
+            for ind, new_point in enumerate(new_points):
+                if self._are_points_near(new_point, point):
+                    points_lookup.append(ind)
 
         self._points = new_points
 
