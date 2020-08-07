@@ -142,8 +142,8 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             positions[unit][1].append(offset)
 
-    # skeleton_graph = SkeletonGraph.construct_from_translated_skeletongraphs(
-    #    positions)
+    skeleton_graph = SkeletonGraph.construct_from_translated_skeletongraphs(
+        positions)
 
     #graph = Graph.construct_from_skeletongraph(skeleton_graph)
 
@@ -151,7 +151,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
     print("finished in", round(time.time() - start_time, 3), "seconds")
 
-    # return graph
+    return skeleton_graph
 
 
 # Utilities
@@ -186,8 +186,8 @@ if __name__ == "__main__":
     if not PROFILING:
         generate_maze(
             w, h,
-            pattern_id=SQUARE,
-            density=0.9)  # .show(flip=True, bounding_box=[w, h])
+            pattern_id=3,
+            density=0.9).show(flip=True, bounding_box=[w, h])
 
     else:
         for i in range(num_patterns()):
