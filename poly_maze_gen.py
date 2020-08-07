@@ -88,7 +88,7 @@ def generate_maze(width, height, pattern_id=0, density=0.9):
 
             if round(offset.x + pattern["unit"]["min_x"], 2) >= 0 and \
                     round(offset.y + pattern["unit"]["min_y"], 2) >= 0:
-                positions[0][1].append(offset.y)
+                positions[0][1].append(offset)
 
     # Add bottom units
     for x in range(reps_x):
