@@ -127,8 +127,10 @@ class SkeletonGraph():
         skeleton_graph = cls()
 
         for edge in edges:
-            skeleton_graph._points.append(edge[0])
-            skeleton_graph._points.append(edge[1])
+            skeleton_graph._points.append(vmath.Vector2(
+                [round(edge[0][0], 2), round(edge[0][1], 2)]))
+            skeleton_graph._points.append(vmath.Vector2(
+                [round(edge[1][0], 2), round(edge[1][1], 2)]))
 
             len_points = len(skeleton_graph._points)
 
