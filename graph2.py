@@ -147,6 +147,26 @@ class SkeletonGraph():
         ]
         """
 
+        #  pylint: disable=protected-access
+        skeleton_graph = cls()
+
+        for unit in translations:
+            for offset in unit[1]:
+                len_points = len(skeleton_graph._points)
+
+                skeleton_graph._points += [
+                    point + offset for point in unit[0]._points]
+
+                skeleton_graph._edges += [
+                    (edge[0] + len_points,
+                     edge[1] + len_points)
+                    for edge in unit[0]._edges
+                ]
+
+        skeleton_graph._deduplicate()
+
+        return skeleton_graph
+
 
 class Graph(SkeletonGraph):
     """ Object to handle points, edges and faces """
