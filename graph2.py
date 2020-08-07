@@ -2,6 +2,7 @@
 
 # Imports
 import json
+import matplotlib.pyplot as plt
 import vectormath as vmath
 
 
@@ -57,6 +58,46 @@ class SkeletonGraph():
     # Public functions
     def show(self, show_edges=True, show_points=False, flip=False, bounding_box=(0, 0)):
         """ Draws edges and or points , applies plt settings and shows plt window """
+
+        if flip:
+            flip_sf = -1
+
+        else:
+            flip_sf = 1
+
+        if show_edges:
+            for edge in self._edges:
+                if True:  # Requires an "enabled" value
+                    plt.plot(
+                        [
+                            self._points[edge[0]].x,
+                            self._points[edge[1]].x
+                        ],
+                        [
+                            self._points[edge[0]].y * flip_sf,
+                            self._points[edge[1]].y*flip_sf
+                        ]
+                    )
+
+        if show_points:
+            for point in self._points:
+                plt.plot(
+                    point.x,
+                    point.y * flip_sf,
+                    "o"
+                )
+
+        if bounding_box != [0, 0]:
+            plt.plot(
+                [0, bounding_box[0], bounding_box[0], 0, 0],
+                [0, 0, bounding_box[1] * flip_sf, bounding_box[1] * flip_sf, 0],
+                "k:"
+            )
+
+        plt.gca().set_aspect('equal', adjustable='box')
+        plt.gcf().set_size_inches(9, 9)
+        plt.subplots_adjust(left=0.04, right=.999, top=1, bottom=0.03)
+        plt.show()
 
     # Classmethods
     @classmethod
