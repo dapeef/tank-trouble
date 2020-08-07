@@ -32,19 +32,20 @@ class SkeletonGraph():
         for point in self._points:
             unique = True
 
-            for new_point in new_points:
+            for ind, new_point in enumerate(new_points):
                 if self._are_points_near(point, new_point):
                     unique = False
+
+                    reference = ind
 
                     break
 
             if unique:
                 new_points.append(point)
 
-            # Indexing equivalent aka: points_lookup.append(new_points.index(point))
-            for ind, new_point in enumerate(new_points):
-                if self._are_points_near(new_point, point):
-                    points_lookup.append(ind)
+                reference = len(new_points) - 1
+
+            points_lookup.append(reference)
 
         self._points = new_points
 
