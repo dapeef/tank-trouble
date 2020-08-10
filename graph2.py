@@ -3,7 +3,6 @@
 # Imports
 import json
 import matplotlib.pyplot as plt
-import vectormath as vmath
 
 
 # Constants
@@ -15,7 +14,7 @@ class SkeletonGraph():
     """ Object to handle points and edges (not faces) """
 
     def __init__(self):
-        self._points: [vmath.Vector2] = []
+        self._points: [(int, int)] = []
         self._edges: [(int, int)] = []
 
     # Private functions
@@ -58,8 +57,8 @@ class SkeletonGraph():
 
     def _are_points_near(self, point1, point2):
         #  pylint: disable=invalid-name
-        dx = point1.x - point2.x
-        dy = point1.y - point2.y
+        dx = point1[0] - point2[0]
+        dy = point1[1] - point2[1]
 
         return dx * dx + dy * dy < NEAR_THRESHOLD * NEAR_THRESHOLD
 
@@ -78,20 +77,20 @@ class SkeletonGraph():
                 if True:  # Requires an "enabled" value
                     plt.plot(
                         [
-                            self._points[edge[0]].x,
-                            self._points[edge[1]].x
+                            self._points[edge[0]][0],
+                            self._points[edge[1]][0]
                         ],
                         [
-                            self._points[edge[0]].y * flip_sf,
-                            self._points[edge[1]].y*flip_sf
+                            self._points[edge[0]][1] * flip_sf,
+                            self._points[edge[1]][1]*flip_sf
                         ]
                     )
 
         if show_points:
             for point in self._points:
                 plt.plot(
-                    point.x,
-                    point.y * flip_sf,
+                    point[0],
+                    point[1] * flip_sf,
                     "o"
                 )
 
@@ -127,14 +126,18 @@ class SkeletonGraph():
         skeleton_graph = cls()
 
         for edge in edges:
-            skeleton_graph._points.append(vmath.Vector2(
-                [round(edge[0][0], 2), round(edge[0][1], 2)]))
-            skeleton_graph._points.append(vmath.Vector2(
-                [round(edge[1][0], 2), round(edge[1][1], 2)]))
+            skeleton_graph._points.append((
+                round(edge[0][0], 2),
+                round(edge[0][1], 2)
+            ))
+            skeleton_graph._points.append((
+                round(edge[1][0], 2),
+                round(edge[1][1], 2)
+            ))
 
             len_points = len(skeleton_graph._points)
 
-            skeleton_graph._edges.append([len_points - 2, len_points - 1])
+            skeleton_graph._edges.append((len_points - 2, len_points - 1))
 
         skeleton_graph._deduplicate()
 
@@ -144,8 +147,8 @@ class SkeletonGraph():
     def construct_from_translated_skeletongraphs(cls, translations):
         """ Returns a SkeletonGraph from the translations in the form
         [
-            [SkeletonGraph1, [Vec2, Vec2, Vec2, ...]],
-            [SkeletonGraph2, [Vec2, Vec2, Vec2, ...]]
+            [SkeletonGraph1, [(x1, y1), (x2, y2), ...]],
+            [SkeletonGraph2, [(x1, y1), (x2, y2), ...]]
         ]
         """
 
@@ -157,7 +160,10 @@ class SkeletonGraph():
                 len_points = len(skeleton_graph._points)
 
                 skeleton_graph._points += [
-                    point + offset for point in unit[0]._points]
+                    (point[0] + offset.x,
+                     point[1] + offset.y)
+                    for point in unit[0]._points
+                ]
 
                 skeleton_graph._edges += [
                     (edge[0] + len_points,
