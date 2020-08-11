@@ -71,8 +71,6 @@ class SkeletonGraph():
             point_count[edge[0]] += 1
             point_count[edge[1]] += 1
 
-        # print(point_count)
-
         if 2 in point_count:
             points_with_2_edges = []
             index_pos = 0
