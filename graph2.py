@@ -136,7 +136,8 @@ class SkeletonGraph():
                         )
 
     # Public functions
-    def show(self, show_edges=True, show_points=False, flip=False, bounding_box=(0, 0)):
+    def _show(self, edge_enable_list, show_edges=True, show_points=False, flip=False,
+              bounding_box=(0, 0)):
         """ Draws edges and or points , applies plt settings and shows plt window """
 
         if flip:
@@ -146,8 +147,13 @@ class SkeletonGraph():
             flip_sf = 1
 
         if show_edges:
-            for edge in self._edges:
-                if True:  # Requires an "enabled" value
+            for ind, edge in enumerate(self._edges):
+                is_enabled = True
+
+                if ind < len(edge_enable_list):
+                    is_enabled = edge_enable_list[ind]
+
+                if is_enabled:  # Requires an "enabled" value
                     plt.plot(
                         [
                             self._points[edge[0]][0],
@@ -178,6 +184,11 @@ class SkeletonGraph():
         plt.gcf().set_size_inches(9, 9)
         plt.subplots_adjust(left=0.04, right=.999, top=1, bottom=0.03)
         plt.show()
+
+    def show(self, **kwargs):
+        """ Draws edges and or points , applies plt settings and shows plt window """
+
+        self._show([], **kwargs)
 
     # Classmethods
     @classmethod
@@ -257,6 +268,7 @@ class Graph(SkeletonGraph):
     def __init__(self):
         super().__init__()
         self._faces: [[int]] = []
+        self._enabled_edges = []
 
     # Private functions
     def _apply_density(self, density):
@@ -270,6 +282,11 @@ class Graph(SkeletonGraph):
     # Public functions
     def make_maze(self, density):
         """ Disables walls from the Graph to make a maze """
+
+    def show(self, **kwargs):  # pylint: disable=signature-differs
+        """ Draws edges and or points , applies plt settings and shows plt window """
+
+        self._show(self._enabled_edges, **kwargs)
 
     # Classmethods
     @classmethod
