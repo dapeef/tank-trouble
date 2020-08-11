@@ -2,11 +2,13 @@
 
 # Imports
 import json
+import math
 import matplotlib.pyplot as plt
 
 
 # Constants
 NEAR_THRESHOLD = .7
+ANGLE_THRESHOLD = 80
 
 
 # Classes
@@ -61,6 +63,77 @@ class SkeletonGraph():
         dy = point1[1] - point2[1]
 
         return dx * dx + dy * dy < NEAR_THRESHOLD * NEAR_THRESHOLD
+
+    def _tidy_edges(self):
+        point_count = [0 for i in self._points]
+
+        for edge in self._edges:
+            point_count[edge[0]] += 1
+            point_count[edge[1]] += 1
+
+        # print(point_count)
+
+        if 2 in point_count:
+            points_with_2_edges = []
+            index_pos = 0
+
+            while True:
+                try:
+                    index_pos = point_count.index(2, index_pos)
+                    points_with_2_edges.append(index_pos)
+                    index_pos += 1
+
+                except ValueError:
+                    break
+
+            for point in points_with_2_edges:
+                relevant_points = []
+                relevant_edges = []
+
+                for ind, edge in enumerate(self._edges):
+                    if edge[0] == point:
+                        relevant_points.append(edge[1])
+                        relevant_edges.append(ind)
+
+                    elif edge[1] == point:
+                        relevant_points.append(edge[0])
+                        relevant_edges.append(ind)
+
+                vec0 = (
+                    self._points[relevant_points[0]][0] -
+                    self._points[point][0],
+                    self._points[relevant_points[0]][1] -
+                    self._points[point][1]
+                )
+                vec1 = (
+                    self._points[relevant_points[1]][0] -
+                    self._points[point][0],
+                    self._points[relevant_points[1]][1] -
+                    self._points[point][1]
+                )
+
+                dot_product = vec0[0] * vec1[0] + vec0[1] * vec1[1]
+
+                vec0_len = math.sqrt(vec0[0] ** 2 + vec0[1] ** 2)
+                vec1_len = math.sqrt(vec1[0] ** 2 + vec1[1] ** 2)
+
+                angle = math.acos(
+                    dot_product / vec0_len / vec1_len
+                ) / math.pi * 180
+
+                if round(angle, 2) < ANGLE_THRESHOLD:
+                    # Delete point
+
+                    self._edges.pop(relevant_edges[1])
+                    self._edges.pop(relevant_edges[0])
+
+                    self._points.pop(point)
+
+                    for ind, (point1, point2) in enumerate(self._edges):
+                        self._edges[ind] = (
+                            point1 - 1 if point1 > point else point1,
+                            point2 - 1 if point2 > point else point2
+                        )
 
     # Public functions
     def show(self, show_edges=True, show_points=False, flip=False, bounding_box=(0, 0)):
@@ -172,6 +245,8 @@ class SkeletonGraph():
                 ]
 
         skeleton_graph._deduplicate()
+
+        skeleton_graph._tidy_edges()
 
         return skeleton_graph
 
