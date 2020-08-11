@@ -121,4 +121,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Profiling files
 *.profile
