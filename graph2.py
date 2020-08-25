@@ -23,6 +23,12 @@ class SkeletonGraph():
     def _serialise_to_json(self):
         """ Returns a json of _points and _edges (for the testing suite) """
 
+        return {
+            "points": self._points,
+            "edge_refs": self._edges,
+            "edges": [(self._points[edge[0]], self._points[edge[1]]) for edge in self._edges]
+        }
+
     def _deduplicate(self):
         """ Removes duplicate points and edges """
 
